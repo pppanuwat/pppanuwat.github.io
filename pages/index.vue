@@ -334,7 +334,7 @@ const menus = [
   { id: 1, name: "บทเรียนที่ 1", content: "nuxt.js คืออะไร" },
   { id: 2, name: "บทเรียนที่ 2", content: "nuxt 3" },
   { id: 3, name: "บทเรียนที่ 3", content: "tailwind" },
-  { id: 4, name: "บทเรียนที่ 4", content: "ยังไม่คิด" },
+  { id: 4, name: "บทเรียนที่ 4", content: "ยังไม่คิดดดดดด" },
 ];
 
 // เมนูที่ถูกเลือก
