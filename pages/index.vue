@@ -200,7 +200,7 @@
           v-if="selectedMenu.id == 3"
           class="p-6 bg-gray-900 text-gray-200 rounded-lg shadow-md mt-1 max-h-[550px] overflow-x-auto"
         >
-          <div class="space-y-6  pr-4">
+          <div class="space-y-6 pr-4">
             <!-- หัวข้อหลัก -->
             <h2 class="text-xl font-bold border-l-4 border-green-400 pl-4">
               การติดตั้ง Tailwind CSS ใน Nuxt 3
@@ -393,6 +393,133 @@ export default defineNuxtConfig({
             </div>
           </div>
         </div>
+
+        <!-- section 5 -->
+        <div
+          v-if="selectedMenu.id == 5"
+          class="p-6 bg-gray-900 text-gray-200 rounded-lg shadow-md mt-1 max-h-[550px] overflow-x-auto"
+        >
+          <div class="space-y-6">
+            <!-- คำอธิบาย -->
+            <p class="text-lg">
+              ใน Nuxt 3 การใช้ Component ช่วยเพิ่มการจัดการโค้ดให้ง่ายขึ้น
+              โดยแบ่งโครงสร้างออกเป็นส่วน ๆ และนำกลับมาใช้ซ้ำได้ในหลายหน้า
+            </p>
+
+            <!-- หัวข้อย่อย -->
+            <div>
+              <h2
+                class="text-lg font-bold border-l-4 border-green-400 pl-4 mb-4"
+              >
+                สร้าง Component
+              </h2>
+              <ul class="space-y-4 list-disc list-inside text-md">
+                <li>
+                  สร้างโฟลเดอร์
+                  <span class="text-yellow-300">`components`</span>
+                  และเพิ่มไฟล์ เช่น `MyButton.vue`:
+                  <pre class="bg-gray-800 text-white rounded p-2 mt-2">
+&lt;template&gt;
+  &lt;button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"&gt;
+  &lt;/button&gt;
+&lt;/template&gt;
+
+&lt;script setup&gt;
+// สามารถเพิ่ม Props หรือการตั้งค่าต่างๆ ได้
+&lt;/script&gt;
+
+&lt;style scoped&gt;
+button {
+  transition: background-color 0.3s ease;
+}
+&lt;/style&gt;
+          </pre
+                  >
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h2
+                class="text-lg font-bold border-l-4 border-green-400 pl-4 mb-4"
+              >
+                การนำ Component ไปใช้
+              </h2>
+              <p class="text-md">
+                เมื่อสร้าง Component เสร็จแล้ว สามารถนำไปใช้ในหน้าเพจหรือ Layout
+                ได้เลย ตัวอย่าง:
+              </p>
+              <pre class="bg-gray-800 text-white rounded p-2 mt-2">
+&lt;template&gt;
+  &lt;div&gt;
+    &lt;h1&gt;หน้าแสดงปุ่ม&lt;/h1&gt;
+    &lt;MyButton&gt;คลิกฉัน!&lt;/MyButton&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script setup&gt;
+import MyButton from '~/components/MyButton.vue';
+&lt;/script&gt;
+      </pre
+              >
+            </div>
+
+            <div>
+              <h2
+                class="text-lg font-bold border-l-4 border-green-400 pl-4 mb-4"
+              >
+                การทำ Component แบบ Global
+              </h2>
+              <p class="text-md">
+                หากต้องการให้ Component ใช้งานได้โดยไม่ต้อง Import ทุกครั้ง
+                ให้เพิ่มไฟล์ใน
+                <span class="text-yellow-300">`components`</span> แล้ว Nuxt
+                จะโหลดให้โดยอัตโนมัติ เช่น:
+              </p>
+              <ul class="space-y-2 list-disc list-inside text-md">
+                <li>
+                  ไฟล์ `components/Header.vue` สามารถใช้งานได้เลยใน template:
+                  <pre class="bg-gray-800 text-white rounded p-2 mt-2">
+&lt;template&gt;
+  &lt;Header /&gt;
+&lt;/template&gt;
+          </pre
+                  >
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h2
+                class="text-lg font-bold border-l-4 border-green-400 pl-4 mb-4"
+              >
+                การจัดการ Props ใน Component
+              </h2>
+              <p class="text-md">
+                ใช้ Props เพื่อส่งข้อมูลไปยัง Component ตัวอย่างการเพิ่ม Props:
+              </p>
+              <pre class="bg-gray-800 text-white rounded p-2 mt-2">
+&lt;template&gt;
+  &lt;button :class="buttonClass"&gt; label &lt;/button&gt;
+&lt;/template&gt;
+
+&lt;script setup&gt;
+defineProps({
+  label: {
+    type: String,
+    required: true
+  },
+  buttonClass: {
+    type: String,
+    default: 'px-4 py-2 bg-blue-500 text-white rounded'
+  }
+});
+&lt;/script&gt;
+      </pre
+              >
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -404,7 +531,8 @@ const menus = [
   { id: 1, name: "บทเรียนที่ 1", content: "nuxt.js คืออะไร" },
   { id: 2, name: "บทเรียนที่ 2", content: "nuxt 3" },
   { id: 3, name: "บทเรียนที่ 3", content: "tailwind" },
-  { id: 4, name: "บทเรียนที่ 4", content: "ยังไม่คิดดดดดด" },
+  { id: 4, name: "บทเรียนที่ 4", content: "layout" },
+  { id: 5, name: "บทเรียนที่ 5", content: "component" },
 ];
 
 // เมนูที่ถูกเลือก
