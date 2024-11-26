@@ -27,6 +27,79 @@
         <p class="text-gray-300 font-bold text-xl">
           - {{ selectedMenu.content }}
         </p>
+
+        <!-- section 0 -->
+<div
+  v-if="selectedMenu.id == 0"
+  class="p-6 bg-gray-900 text-gray-200 rounded-lg shadow-md mt-1 max-h-[550px] overflow-x-auto"
+>
+  <div class="space-y-6">
+    <!-- Introduction -->
+    <h2 class="text-lg font-bold border-l-4 border-purple-400 pl-4 mb-4">
+      Quiz: ทดสอบความรู้เกี่ยวกับ JavaScript และ Nuxt 3
+    </h2>
+    <p class="text-md">
+      ตอบคำถามต่อไปนี้ให้ดีที่สุด แล้วเราจะมาสรุปคะแนนพร้อมคำอธิบายกัน!
+    </p>
+
+    <!-- Quiz Questions -->
+    <div v-if="!isQuizComplete">
+      <div v-for="(question, index) in questions" :key="index" class="mt-4">
+        <p class="text-md font-medium">
+          {{ index + 1 }}. {{ question.question }}
+        </p>
+        <div class="space-y-2">
+          <label
+            v-for="(option, idx) in question.options"
+            :key="idx"
+            class="block"
+          >
+            <input
+              type="radio"
+              :name="'question-' + index"
+              :value="option"
+              v-model="question.selected"
+              class="mr-2"
+            />
+            {{ option }}
+          </label>
+        </div>
+      </div>
+
+      <button
+        class="mt-6 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+        @click="submitQuiz"
+      >
+        ส่งคำตอบ
+      </button>
+    </div>
+
+    <!-- Quiz Results -->
+    <div v-else>
+      <h3 class="text-md font-bold text-green-400 mt-4">
+        หนูได้คะแนน {{ score }}/{{ questions.length }} นะจ้ะฮิฮิ
+      </h3>
+      <ul class="list-disc list-inside mt-4 text-md">
+        <li v-for="(question, index) in questions" :key="index">
+          <p class="font-medium">
+            {{ index + 1 }}. {{ question.question }}
+          </p>
+          <p
+            :class="{
+              'text-green-400': question.isCorrect,
+              'text-red-400': !question.isCorrect
+            }"
+          >
+            - คำตอบของยูววว: {{ question.selected }} ({{ question.isCorrect ? 'ถูกต้อง' : 'ผิด' }})
+          </p>
+          <p class="text-gray-400">- คำตอบที่ถูกต้อง: {{ question.correct }}</p>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
         <!-- section 1 -->
         <div
           v-if="selectedMenu.id == 1"
@@ -520,6 +593,128 @@ defineProps({
             </div>
           </div>
         </div>
+
+        <!-- section 6 -->
+        <div
+          v-if="selectedMenu.id == 6"
+          class="p-6 bg-gray-900 text-gray-200 rounded-lg shadow-md mt-1 max-h-[550px] overflow-x-auto"
+        >
+          <div class="space-y-6">
+            <!-- คำอธิบาย -->
+            <p class="text-lg">
+              การจัดการ State ด้วย Pinia
+              ช่วยให้โยมสามารถจัดการข้อมูลที่ใช้ร่วมกันระหว่าง Component
+              อย่างมีประสิทธิภาพใน Nuxt 3
+            </p>
+
+            <!-- หัวข้อย่อย -->
+            <div>
+              <h2
+                class="text-lg font-bold border-l-4 border-purple-400 pl-4 mb-4"
+              >
+                ติดตั้ง Pinia
+              </h2>
+              <p class="text-md">
+                เริ่มต้นด้วยการติดตั้ง Pinia ในโปรเจค Nuxt 3:
+              </p>
+              <pre class="bg-gray-800 text-white rounded p-2 mt-2">
+# ใช้ Yarn
+yarn add pinia
+      </pre
+              >
+              <p class="text-md">
+                จากนั้นเพิ่ม Pinia ไปที่ไฟล์ `nuxt.config.ts`:
+              </p>
+              <pre class="bg-gray-800 text-white rounded p-2 mt-2">
+export default defineNuxtConfig({
+  modules: ['@pinia/nuxt'],
+});
+      </pre
+              >
+            </div>
+
+            <div>
+              <h2
+                class="text-lg font-bold border-l-4 border-purple-400 pl-4 mb-4"
+              >
+                การสร้าง Store
+              </h2>
+              <p class="text-md">
+                สร้างโฟลเดอร์
+                <span class="text-yellow-300">`stores`</span> และไฟล์ Store เช่น
+                `counter.ts`:
+              </p>
+              <pre class="bg-gray-800 text-white rounded p-2 mt-2">
+import { defineStore } from 'pinia';
+
+export const useCounterStore = defineStore('counter', {
+  state: () => ({
+    count: 0,
+  }),
+  actions: {
+    increment() {
+      this.count++;
+    },
+    decrement() {
+      this.count--;
+    },
+  },
+});
+      </pre
+              >
+            </div>
+
+            <div>
+              <h2
+                class="text-lg font-bold border-l-4 border-purple-400 pl-4 mb-4"
+              >
+                การใช้งาน Store ใน Component
+              </h2>
+              <p class="text-md">ใช้ Store ที่สร้างใน Component ดังนี้:</p>
+              <pre class="bg-gray-800 text-white rounded p-2 mt-2">
+&lt;template&gt;
+  &lt;div&gt;
+    &lt;p&gt;Count: counter.count &lt;/p&gt;
+    &lt;button @click="counter.increment"&gt;+ เพิ่ม&lt;/button&gt;
+    &lt;button @click="counter.decrement"&gt;- ลด&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script setup&gt;
+import { useCounterStore } from '~/stores/counter';
+
+const counter = useCounterStore();
+&lt;/script&gt;
+      </pre
+              >
+            </div>
+
+            <div>
+              <h2
+                class="text-lg font-bold border-l-4 border-purple-400 pl-4 mb-4"
+              >
+                ตัวอย่างเพิ่มเติม: ใช้ Getter ใน Store
+              </h2>
+              <p class="text-md">เพิ่ม Getter สำหรับการคำนวณข้อมูลใน Store:</p>
+              <pre class="bg-gray-800 text-white rounded p-2 mt-2">
+export const useCounterStore = defineStore('counter', {
+  state: () => ({
+    count: 0,
+  }),
+  getters: {
+    doubleCount: (state) => state.count * 2,
+  },
+});
+      </pre
+              >
+              <p class="text-md">ใช้ Getter ใน Component:</p>
+              <pre class="bg-gray-800 text-white rounded p-2 mt-2">
+&lt;p&gt;Double Count:  counter.doubleCount &lt;/p&gt;
+      </pre
+              >
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -528,11 +723,13 @@ defineProps({
 <script setup lang="ts">
 // รายการเมนู
 const menus = [
+  { id: 0, name: "ทำควิชเล่นๆ นะ ฮาฟฟู่วววว", content: "ฮิฮิ" },
   { id: 1, name: "บทเรียนที่ 1", content: "nuxt.js คืออะไร" },
   { id: 2, name: "บทเรียนที่ 2", content: "nuxt 3" },
   { id: 3, name: "บทเรียนที่ 3", content: "tailwind" },
   { id: 4, name: "บทเรียนที่ 4", content: "layout" },
   { id: 5, name: "บทเรียนที่ 5", content: "component" },
+  { id: 6, name: "บทเรียนที่ 6", content: "component" },
 ];
 
 // เมนูที่ถูกเลือก
@@ -542,6 +739,115 @@ const selectedMenu = ref(menus[0]);
 const selectMenu = (menu: (typeof menus)[0]) => {
   selectedMenu.value = menu;
 };
+
+
+
+
+
+// into
+
+const questions = reactive([
+  {
+    question: "JavaScript ใช้ Loop ใดในการวนซ้ำ Array?",
+    options: ["for", "while", "forEach", "ทั้งหมดถูกต้อง"],
+    correct: "ทั้งหมดถูกต้อง",
+    selected: null,
+    isCorrect: false,
+  },
+  {
+    question: "ใน Nuxt 3 ไฟล์ใดที่ใช้กำหนด Layout?",
+    options: ["app.vue", "nuxt.config.ts", "layouts/default.vue", "pages/index.vue"],
+    correct: "layouts/default.vue",
+    selected: null,
+    isCorrect: false,
+  },
+  {
+    question: "Interface ใน TypeScript ใช้สำหรับอะไร?",
+    options: [
+      "กำหนดรูปแบบของข้อมูล",
+      "ใช้แทน Object",
+      "จัดการ DOM",
+      "สร้างฟังก์ชัน",
+    ],
+    correct: "กำหนดรูปแบบของข้อมูล",
+    selected: null,
+    isCorrect: false,
+  },
+  {
+    question: "JavaScript ใช้คำสั่งใดเพื่อวนซ้ำ Object?",
+    options: ["for-in", "for-of", "forEach", "while"],
+    correct: "for-in",
+    selected: null,
+    isCorrect: false,
+  },
+  {
+    question: "Ref ใน Vue 3 ใช้ทำอะไร?",
+    options: [
+      "สร้าง Reactive Variable",
+      "จัดการ Event",
+      "เชื่อมต่อกับ DOM",
+      "ทั้งหมดถูกต้อง",
+    ],
+    correct: "ทั้งหมดถูกต้อง",
+    selected: null,
+    isCorrect: false,
+  },
+  {
+    question: "Nuxt 3 ใช้คำสั่งใดเพื่อดึง Query Parameter?",
+    options: ["useRoute", "useQuery", "useParams", "useFetch"],
+    correct: "useRoute",
+    selected: null,
+    isCorrect: false,
+  },
+  {
+    question: "คำสั่ง JavaScript ใดที่ใช้สำหรับทำให้คำสั่ง Async ทำงานได้ง่ายขึ้น?",
+    options: ["Promise", "await", "async/await", "setTimeout"],
+    correct: "async/await",
+    selected: null,
+    isCorrect: false,
+  },
+  {
+    question: "คำสั่งใดใน TypeScript ใช้กำหนดประเภทของตัวแปร?",
+    options: ["let", "const", "type", "interface"],
+    correct: "type",
+    selected: null,
+    isCorrect: false,
+  },
+  {
+    question: "ใน Nuxt 3, Middleware ใช้สำหรับอะไร?",
+    options: [
+      "จัดการ Routing",
+      "ตรวจสอบการเข้าถึงเพจ",
+      "ดึงข้อมูลจาก API",
+      "ทั้งหมดถูกต้อง",
+    ],
+    correct: "ตรวจสอบการเข้าถึงเพจ",
+    selected: null,
+    isCorrect: false,
+  },
+  {
+    question: "JavaScript มีวิธีการเรียกใช้ฟังก์ชันใด?",
+    options: ["Call", "Apply", "Bind", "ทั้งหมดถูกต้อง"],
+    correct: "ทั้งหมดถูกต้อง",
+    selected: null,
+    isCorrect: false,
+  },
+]);
+
+
+const score = ref(0);
+const isQuizComplete = ref(false);
+
+function submitQuiz() {
+  score.value = 0;
+
+  questions.forEach((question :any) => {
+    question.isCorrect = question.selected === question.correct;
+    if (question.isCorrect) score.value++;
+  });
+
+  isQuizComplete.value = true;
+}
 </script>
 
 <style scoped></style>
