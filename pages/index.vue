@@ -19,7 +19,7 @@
     </div>
 
     <!-- Content -->
-    <div class="flex-1 bg-gray-900 p-8">
+    <div class="flex-1 bg-gray-900 p-8 h-full">
       <div class="bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-700">
         <h1 class="text-3xl font-bold mb-4 text-blue-500">
           {{ selectedMenu.name }}
@@ -30,7 +30,7 @@
         <!-- section 1 -->
         <div
           v-if="selectedMenu.id == 1"
-          class="p-6 bg-gray-900 text-gray-200 rounded-lg shadow-md mt-1"
+          class="p-6 bg-gray-900 text-gray-200 rounded-lg shadow-md mt-1 max-h-[500px] overflow-x-auto"
         >
           <div class="space-y-6">
             <!-- คำอธิบาย -->
@@ -113,7 +113,7 @@
         <!-- section 2 -->
         <div
           v-if="selectedMenu.id == 2"
-          class="p-6 bg-gray-900 text-gray-200 rounded-lg shadow-md mt-1"
+          class="p-6 bg-gray-900 text-gray-200 rounded-lg shadow-md mt-1 max-h-[500px] overflow-x-auto"
         >
           <div class="space-y-6">
             <!-- หัวข้อหลัก -->
@@ -148,10 +148,12 @@
                 >
                 เปิด Terminal และพิมพ์คำสั่งต่อไปนี้:
                 <div class="bg-gray-800 p-4 mt-2 rounded-lg">
-                  <code class="text-green-400">npx nuxi init my-nuxt-app</code>
+                  <code class="text-green-400"
+                    >npx nuxi init nuxt-app-byPOND</code
+                  >
                 </div>
                 คำสั่งนี้จะสร้างโครงสร้างโปรเจกต์พื้นฐานสำหรับ Nuxt 3
-                ในโฟลเดอร์ชื่อ <code>my-nuxt-app</code>
+                ในโฟลเดอร์ชื่อ <code>nuxt-app-byPOND</code>
               </li>
               <li>
                 <span class="font-semibold text-yellow-300"
@@ -196,9 +198,9 @@
         <!-- section 3 -->
         <div
           v-if="selectedMenu.id == 3"
-          class="p-6 bg-gray-900 text-gray-200 rounded-lg shadow-md mt-1"
+          class="p-6 bg-gray-900 text-gray-200 rounded-lg shadow-md mt-1 max-h-[500px] overflow-x-auto"
         >
-          <div class="space-y-6 max-h-[600px] overflow-auto pr-4">
+          <div class="space-y-6  pr-4">
             <!-- หัวข้อหลัก -->
             <h2 class="text-xl font-bold border-l-4 border-green-400 pl-4">
               การติดตั้ง Tailwind CSS ใน Nuxt 3
@@ -274,7 +276,7 @@ content: [
                   >ตั้งค่า Nuxt ให้ใช้ Tailwind CSS:</span
                 >
                 เพิ่ม CSS ไฟล์ใน `nuxt.config.ts`:
-                <div class="bg-gray-800 p-4  rounded-lg">
+                <div class="bg-gray-800 p-4 rounded-lg">
                   <pre class="text-green-400">
 export default defineNuxtConfig({
     css: ["@/assets/css/main.css"],
@@ -320,6 +322,74 @@ export default defineNuxtConfig({
                 เช่น การเพิ่มสีหรือฟอนต์ใหม่ในส่วน
                 <code class="text-green-400">theme.extend</code> เป็นต้น
               </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- section 4 -->
+        <div
+          v-if="selectedMenu.id == 4"
+          class="p-6 bg-gray-900 text-gray-200 rounded-lg shadow-md mt-1 max-h-[500px] overflow-x-auto"
+        >
+          <div class="space-y-6">
+            <!-- คำอธิบาย -->
+            <p class="text-lg">
+              App Page และ Layout ใน Nuxt 3
+              เป็นสิ่งสำคัญที่ช่วยให้การจัดการโครงสร้างแอปเป็นระเบียบและยืดหยุ่นมากขึ้น
+            </p>
+
+            <!-- หัวข้อย่อย -->
+            <div>
+              <h2
+                class="text-lg font-bold border-l-4 border-blue-400 pl-4 mb-4"
+              >
+                app.vue
+              </h2>
+              <ul class="space-y-4 list-disc list-inside text-md">
+                <li>
+                  ในไฟล์
+                  <span class="text-yellow-300">app.vue</span>
+                  ใช้โครงสร้างพื้นฐานดังนี้:
+                  <pre class="bg-gray-800 text-white rounded p-2 mt-2">
+&lt;template&gt;
+  &lt;NuxtLayout&gt;
+    &lt;NuxtPage /&gt;
+  &lt;/NuxtLayout&gt;
+&lt;/template&gt;
+          </pre
+                  >
+                  <!-- โดย `<NuxtLayout>` และ `<NuxtPage>` ช่วยให้จัดการเลย์เอาท์และเพจได้ง่าย -->
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h2
+                class="text-lg font-bold border-l-4 border-blue-400 pl-4 mb-4"
+              >
+                การสร้าง Layout
+              </h2>
+              <ul class="space-y-4 list-disc list-inside text-md">
+                <li>
+                  สร้างโฟลเดอร์
+                  <span class="text-yellow-300">`layouts`</span> และเพิ่มไฟล์
+                  `default.vue`:
+                  <pre class="bg-gray-800 text-white rounded p-2 mt-2">
+&lt;template&gt;
+  &lt;div&gt;
+    &lt;header&gt;Header&lt;/header&gt;
+  &lt;slot /&gt;
+    &lt;footer&gt;Footer&lt;/footer&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;style&gt;
+/* เพิ่มสไตล์ตามต้องการ */
+&lt;/style&gt;
+          </pre
+                  >
+                </li>
+              </ul>
             </div>
           </div>
         </div>
