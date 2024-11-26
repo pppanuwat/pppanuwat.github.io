@@ -30,7 +30,7 @@
         <!-- section 1 -->
         <div
           v-if="selectedMenu.id == 1"
-          class="p-6 bg-gray-900 text-gray-200 rounded-lg shadow-md mt-1 max-h-[500px] overflow-x-auto"
+          class="p-6 bg-gray-900 text-gray-200 rounded-lg shadow-md mt-1 max-h-[550px] overflow-x-auto"
         >
           <div class="space-y-6">
             <!-- คำอธิบาย -->
@@ -113,7 +113,7 @@
         <!-- section 2 -->
         <div
           v-if="selectedMenu.id == 2"
-          class="p-6 bg-gray-900 text-gray-200 rounded-lg shadow-md mt-1 max-h-[500px] overflow-x-auto"
+          class="p-6 bg-gray-900 text-gray-200 rounded-lg shadow-md mt-1 max-h-[550px] overflow-x-auto"
         >
           <div class="space-y-6">
             <!-- หัวข้อหลัก -->
@@ -198,7 +198,7 @@
         <!-- section 3 -->
         <div
           v-if="selectedMenu.id == 3"
-          class="p-6 bg-gray-900 text-gray-200 rounded-lg shadow-md mt-1 max-h-[500px] overflow-x-auto"
+          class="p-6 bg-gray-900 text-gray-200 rounded-lg shadow-md mt-1 max-h-[550px] overflow-x-auto"
         >
           <div class="space-y-6  pr-4">
             <!-- หัวข้อหลัก -->
@@ -329,7 +329,7 @@ export default defineNuxtConfig({
         <!-- section 4 -->
         <div
           v-if="selectedMenu.id == 4"
-          class="p-6 bg-gray-900 text-gray-200 rounded-lg shadow-md mt-1 max-h-[500px] overflow-x-auto"
+          class="p-6 bg-gray-900 text-gray-200 rounded-lg shadow-md mt-1 max-h-[550px] overflow-x-auto"
         >
           <div class="space-y-6">
             <!-- คำอธิบาย -->
