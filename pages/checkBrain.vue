@@ -9,7 +9,7 @@
     >
       <!-- คำถาม -->
       <h2 class="text-xl font-bold mb-4">ตอบคำถามเพื่อเข้าถึงเนื้อหานาจาาา</h2>
-      <p class="text-lg">คำถาม: Yellow คืออะไรรรรรรรรรรร ?</p>
+      <p class="text-lg">คำถาม: Yellow คืออะไรร (ไม่ใช่สีเหลืองฮุฮุ) ?</p>
 
       <!-- กล่องกรอกคำตอบ -->
       <input
@@ -32,7 +32,7 @@
       <div v-if="errorMessage" class="mt-4">
         <p class="text-red-400 mb-2">{{ errorMessage }}</p>
         <img
-          src="https://media.giphy.com/media/l3q2K5jinAlChoCLS/giphy.gif"
+          :src="randomGif"
           alt="ผิดแล้วนะ"
           class="rounded-md mx-auto"
         />
@@ -45,7 +45,7 @@
       class="p-8 bg-blue-500 rounded-lg shadow-md w-full max-w-md text-center space-y-4"
     >
       <h2 class="text-xl font-bold text-green-400">
-       <span class="text-red-500 font-bold text-2xl">ยังอีก</span>  เดี๋ยวเอากะโถนฟาดปาก 
+       <span class="text-red-500 font-bold text-3xl">ยังอีก</span> เดี๋ยวเอากะโถนฟาดปาก 
       </h2>
       <span class="text-xs">หยอก! ถูกแล้ว 🎉</span>
       <button
@@ -66,16 +66,38 @@ const userAnswer = ref(""); // เก็บคำตอบของผู้ใ�
 const isUnlocked = ref(false); // เก็บสถานะว่าปลดล็อคหรือยัง
 const errorMessage = ref(""); // เก็บข้อความแสดงข้อผิดพลาด
 const router = useRouter(); // ใช้เปลี่ยนหน้า
+const randomGif = ref(""); // เก็บ URL ของ GIF ที่จะสุ่ม
 
 // คำตอบที่ถูกต้อง
 const correctAnswer = "มะม่วง";
+
+const errorMessages = [
+  "ผิดฮาฟฟ! ลองอีกที yellow ยูโน้วว",
+  "ยังไม่ถูก อีกทีๆ",
+  "อุ๊บส์! คำตอบผิดจ้า",
+  "คิดใหม่หน่อย",
+  "อย่าหลงทางงหนู",
+];
+
+const gifs = [
+  "https://media.giphy.com/media/l3q2K5jinAlChoCLS/giphy.gif",  // GIF ตลก
+  "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExanpxYjBxN3VxbWxwODI3Z2d6anhmOTB2aGdrYXV2Y2VkNXRhOTN6dCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/61lpuBy8xTVARQewI5/giphy.gif",  // GIF ที่แสดงความตกใจ
+  "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExdmVtNW15OG9ibjA2czcwczl6cW1qcDVudjh2d2RibGtsNDk0eTg2cCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/8lgqAbycBjosxjfi9k/giphy.gif",  // GIF ตลก
+  "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExeTg0dnFlZW52ZDBmOGc2eGVtcTBtZ3J3b210YWE1anVuNWo5NTdpdyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Lk023zZqHJ3Zz4rxtV/giphy.gif",  // GIF สุนัข
+];
 
 function checkAnswer() {
   if (userAnswer.value.trim().toLowerCase() === correctAnswer) {
     isUnlocked.value = true;
     errorMessage.value = ""; // เคลียร์ข้อความ error
+    randomGif.value = ""; // เคลียร์ GIF
   } else {
-    errorMessage.value = "ผิดฮาฟฟ! ลองอีกที yellow ยูโน้วว ";
+    const randomIndex = Math.floor(Math.random() * errorMessages.length);
+    errorMessage.value = errorMessages[randomIndex];
+
+      // เลือก GIF สุ่มจาก array
+      const randomIndexGif = Math.floor(Math.random() * gifs.length);
+    randomGif.value = gifs[randomIndexGif];
   }
 }
 
