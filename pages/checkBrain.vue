@@ -43,7 +43,7 @@
         class="p-8 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-lg shadow-lg w-full max-w-md text-center space-y-6 flex flex-col items-center"
       >
         <div class="w-full">
-          <h1 class="text-xl font-bold text-white mb-4">วิดีโอจาก Facebook</h1>
+          <h1 class="text-xl font-bold text-white mb-4">กด play clip ก่อน</h1>
           <iframe
             src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fwatch%2F%3Fv%3D1129705481374807&autoplay=1&width=500&show_text=false&height=281&appId"
             width="100%"
