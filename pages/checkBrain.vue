@@ -12,7 +12,7 @@
         <h2 class="text-xl font-bold mb-4">
           ตอบคำถามเพื่อเข้าถึงเนื้อหานาจาาา
         </h2>
-        <p class="text-lg">คำถาม:อย่าง Yellow คืออ (ไม่ใช่สีเหลืองฮุฮุ) ?</p>
+        <p class="text-lg">คำถาม:เมื่อวานแฟร์ใส่ชุดสีอะไรจ้ะ ?</p>
 
         <!-- กล่องกรอกคำตอบ -->
         <input
@@ -40,16 +40,18 @@
       <!-- เมื่อคำตอบถูกต้อง -->
       <div
         v-else
-        class="p-8 bg-blue-500 rounded-lg shadow-md w-full max-w-md text-center space-y-4"
+        class="p-8 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-lg shadow-lg w-full max-w-md text-center space-y-4"
       >
-        <h2 class="text-xl font-bold text-green-400">
-          <span class="text-red-500 font-bold text-3xl">ยังอีก</span>
+        <h2 class="text-2xl font-extrabold text-white">
+          <span class="text-red-500 font-bold text-4xl">ยังอีก</span>
           เดี๋ยวเอากะโถนฟาดปาก
         </h2>
-        <span class="text-xs">หยอก! ถูกแล้ว 🎉</span>
+        <span class="text-sm text-yellow-200 font-medium"
+          >หยอก! ถูกแล้ว 🎉</span
+        >
         <button
           @click="goToContent"
-          class="w-full bg-black text-white px-4 py-2 rounded-md hover:bg-green-600"
+          class="w-full bg-black text-white px-5 py-3 rounded-md shadow-md hover:bg-green-500 transition-all duration-300 ease-in-out"
         >
           เข้าสู่เนื้อหากันเลยวัยรุ่น
         </button>
@@ -59,23 +61,26 @@
     <!-- Modal for confirmation -->
     <div
       v-if="showConfirmModal"
-      class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center z-50"
+      class="fixed inset-0 bg-gray-900 bg-opacity-80 flex items-center justify-center z-50"
     >
-      <div class="bg-white p-6 rounded-lg shadow-lg w-80">
-        <h3 class="text-xl font-bold mb-4">ยืนยันคำตอบบบบบ</h3>
-        <p class="mb-4">โยมแน่ใจหรือไม่ว่าต้องการตอบว่า "{{ userAnswer }}" ?</p>
-        <div class="flex justify-between gap-2">
+      <div class="bg-white p-8 rounded-lg shadow-2xl w-96 space-y-6">
+        <h3 class="text-2xl font-bold text-gray-800">ยืนยันคำตอบ</h3>
+        <p class="text-gray-600 text-center">
+          โยมแน่ใจหรือไม่ว่าต้องการตอบว่า
+          <span class="font-semibold text-blue-500">"{{ userAnswer }}"</span> ?
+        </p>
+        <div class="flex justify-between gap-4">
           <button
             @click="checkAnswer"
-            class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600"
+            class="bg-green-500 text-white px-5 py-3 rounded-md shadow-md hover:bg-green-600 transition-all duration-300 ease-in-out w-full"
           >
             แมน
           </button>
           <button
             @click="cancelConfirmation"
-            class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 w-full"
+            class="bg-red-500 text-white px-5 py-3 rounded-md shadow-md hover:bg-red-600 transition-all duration-300 ease-in-out w-full"
           >
-           บ่
+            บ่
           </button>
         </div>
       </div>
@@ -95,10 +100,10 @@ const router = useRouter(); // ใช้เปลี่ยนหน้า
 const randomGif = ref(""); // เก็บ URL ของ GIF ที่จะสุ่ม
 
 // คำตอบที่ถูกต้อง
-const correctAnswer = "มะม่วง";
+const correctAnswer = "ขาว";
 
 const errorMessages = [
-  "ผิดฮาฟฟ! ลองอีกที yellow ยูโน้วว",
+  "ผิดฮาฟฟ! ลองคิสอีกที ",
   "ยังไม่ถูก อีกทีๆ",
   "อุ๊บส์! คำตอบผิดจ้า",
   "คิดใหม่หน่อย",
@@ -113,17 +118,17 @@ const gifs = [
 ];
 
 // ฟังก์ชันสำหรับแสดง modal ยืนยันคำตอบ
-function confirmAnswer() {
+const confirmAnswer = () => {
   showConfirmModal.value = true; // แสดง modal การยืนยัน
-}
+};
 
 // ฟังก์ชันยกเลิกการยืนยันคำตอบ
-function cancelConfirmation() {
+const cancelConfirmation = () => {
   showConfirmModal.value = false; // ซ่อน modal
-}
+};
 
 // ฟังก์ชันสำหรับตรวจคำตอบ
-function checkAnswer() {
+const checkAnswer = () => {
   if (userAnswer.value.trim().toLowerCase() === correctAnswer) {
     isUnlocked.value = true;
     errorMessage.value = ""; // เคลียร์ข้อความ error
@@ -138,12 +143,12 @@ function checkAnswer() {
   }
 
   showConfirmModal.value = false; // ซ่อน modal หลังจากตรวจคำตอบ
-}
+};
 
 // ฟังก์ชันเปลี่ยนหน้าไปที่เนื้อหา
-function goToContent() {
+const goToContent = () => {
   router.push("/content"); // เปลี่ยนไปยังหน้าเนื้อหา
-}
+};
 </script>
 
 <style scoped>

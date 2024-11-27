@@ -724,13 +724,140 @@ export const useCounterStore = defineStore('counter', {
             </div>
           </div>
         </div>
+
+        <!-- Section 7 -->
+        <!-- Section 7 -->
+        <div
+          v-if="selectedMenu.id == 7"
+          class="p-6 bg-gray-900 text-gray-200 rounded-lg shadow-md mt-1 max-h-[550px] overflow-x-auto"
+        >
+          <div class="space-y-6">
+            <!-- คำอธิบาย -->
+            <p class="text-lg">
+              ใน Nuxt และ TypeScript การใช้ `const` แทน `let`, `var` หรือ
+              `function` กลายเป็นแนวทางที่นิยม
+              เนื่องจากช่วยเพิ่มความปลอดภัยของโค้ดและลดโอกาสเกิดข้อผิดพลาด
+            </p>
+
+            <!-- หัวข้อย่อย -->
+            <div>
+              <h2
+                class="text-lg font-bold border-l-4 border-purple-400 pl-4 mb-4"
+              >
+                1. ป้องกันการเปลี่ยนค่าโดยไม่ตั้งใจ
+              </h2>
+              <p class="text-md">
+                ตัวแปรที่ประกาศด้วย `const` ไม่สามารถกำหนดค่าใหม่ (reassign) ได้
+                ซึ่งช่วยลดความสับสน:
+              </p>
+              <pre class="bg-gray-800 text-white rounded p-2 mt-2">
+const appName = "Nuxt App";
+// appName = "New Name"; ❌ Error: Assignment to constant variable
+      </pre
+              >
+              <p class="text-md">
+                นอกจากนี้ยังช่วยให้โค้ดปลอดภัยจากการเปลี่ยนค่าโดยไม่ตั้งใจ
+              </p>
+            </div>
+
+            <div>
+              <h2
+                class="text-lg font-bold border-l-4 border-purple-400 pl-4 mb-4"
+              >
+                2. ทำให้โค้ดมีโครงสร้างชัดเจน
+              </h2>
+              <p class="text-md">
+                เมื่อใช้ `const` ในการสร้างฟังก์ชันหรือค่าคงที่
+                จะช่วยบ่งบอกได้ว่า ตัวแปรนี้ไม่ควรถูกเปลี่ยนแปลง:
+              </p>
+              <pre class="bg-gray-800 text-white rounded p-2 mt-2">
+const fetchData = async () => {
+  const data = await fetch('/api/data');
+  return await data.json();
+};
+
+// fetchData = () => {}; ❌ Error
+      </pre
+              >
+              <p class="text-md">
+                ฟังก์ชันนี้จะไม่สามารถกำหนดค่าใหม่ได้
+                ทำให้แน่ใจว่าโค้ดมีความเสถียรมากขึ้น
+              </p>
+            </div>
+
+            <div>
+              <h2
+                class="text-lg font-bold border-l-4 border-purple-400 pl-4 mb-4"
+              >
+                3. ป้องกันข้อผิดพลาดจาก Hoisting
+              </h2>
+              <p class="text-md">
+                การใช้ `var` ทำให้ตัวแปรถูกยก (hoist) ไปประกาศก่อนโดยไม่ตั้งใจ
+                ซึ่งอาจทำให้เกิดพฤติกรรมไม่คาดคิด:
+              </p>
+              <pre class="bg-gray-800 text-white rounded p-2 mt-2">
+// ใช้ var (เกิด hoisting)
+console.log(name); // undefined
+var name = "Pond";
+
+// ใช้ const (เกิด Error)
+console.log(name); // ❌ Error: Cannot access 'name' before initialization
+const name = "Pond";
+      </pre
+              >
+            </div>
+
+            <div>
+              <h2
+                class="text-lg font-bold border-l-4 border-purple-400 pl-4 mb-4"
+              >
+                4. รองรับ TypeScript ได้ดี
+              </h2>
+              <p class="text-md">
+                ใน Nuxt (ซึ่งรองรับ TypeScript) การใช้ `const` ร่วมกับ
+                TypeScript ช่วยกำหนดประเภทของค่าที่แน่นอน เช่น:
+              </p>
+              <pre class="bg-gray-800 text-white rounded p-2 mt-2">
+const apiEndpoint: string = "/api/v1"; // ค่าไม่สามารถเปลี่ยนได้
+const user: { name: string; age: number } = { name: "Pond", age: 30 };
+      </pre
+              >
+              <p class="text-md">
+                การใช้ `const`
+                ช่วยป้องกันข้อผิดพลาดที่อาจเกิดจากการกำหนดค่าผิดประเภท
+                ในโปรเจกต์ที่ซับซ้อน
+              </p>
+            </div>
+
+            <div>
+              <h2
+                class="text-lg font-bold border-l-4 border-purple-400 pl-4 mb-4"
+              >
+                5. เป็น Best Practice ใน ES6+
+              </h2>
+              <p class="text-md">
+                ตั้งแต่ ES6 เป็นต้นมา การใช้ `const`
+                เป็นมาตรฐานที่แนะนำในการเขียนโค้ด เพื่อลดข้อผิดพลาด:
+              </p>
+              <ul class="list-disc pl-6">
+                <li>`const` สำหรับค่าที่ไม่เปลี่ยน</li>
+                <li>`let` สำหรับค่าที่เปลี่ยนแปลงได้</li>
+              </ul>
+              <p class="text-md">ตัวอย่าง:</p>
+              <pre class="bg-gray-800 text-white rounded p-2 mt-2">
+const MAX_USERS = 100; // ค่าคงที่
+let currentUsers = 10; // ค่าที่เปลี่ยนแปลงได้
+      </pre
+              >
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-
 // รายการเมนู
 const menus = [
   { id: 0, name: "ทำควิชเล่นๆ นะ ฮาฟฟู่วววว", content: "ฮิฮิ" },
@@ -739,7 +866,8 @@ const menus = [
   { id: 3, name: "บทเรียนที่ 3", content: "tailwind" },
   { id: 4, name: "บทเรียนที่ 4", content: "layout" },
   { id: 5, name: "บทเรียนที่ 5", content: "component" },
-  { id: 6, name: "บทเรียนที่ 6", content: "component" },
+  { id: 6, name: "บทเรียนที่ 6", content: "pinia" },
+  { id: 7, name: "บทเรียนที่ 7", content: "const" },
 ];
 
 // เมนูที่ถูกเลือก
@@ -754,93 +882,99 @@ const selectMenu = (menu: (typeof menus)[0]) => {
 
 const questions = reactive([
   {
-    question: "JavaScript ใช้ Loop ใดในการวนซ้ำ Array?",
-    options: ["for", "while", "forEach", "ทั้งหมดถูกต้อง"],
-    correct: "ทั้งหมดถูกต้อง",
-    selected: null,
-    isCorrect: false,
-  },
-  {
-    question: "ใน Nuxt 3 ไฟล์ใดที่ใช้กำหนด Layout?",
+    question: "HTML ย่อมาจากอะไร?",
     options: [
-      "app.vue",
-      "nuxt.config.ts",
-      "layouts/default.vue",
-      "pages/index.vue",
+      "HyperText Markup Language",
+      "HighText Markup Language",
+      "HyperTransfer Mark Language",
+      "HyperText Markdown Language",
     ],
-    correct: "layouts/default.vue",
+    correct: "HyperText Markup Language",
     selected: null,
     isCorrect: false,
   },
   {
-    question: "Interface ใน TypeScript ใช้สำหรับอะไร?",
+    question: "!DOCTYPE html บอกอะไรของ HTML?",
     options: [
-      "กำหนดรูปแบบของข้อมูล",
-      "ใช้แทน Object",
-      "จัดการ DOM",
-      "สร้างฟังก์ชัน",
+      "ภาษาในการเขียนเว็บไซต์",
+      "การเชื่อมต่อ API",
+      "เวอร์ชันของ HTML",
+      "รูปแบบการแสดงผล",
     ],
-    correct: "กำหนดรูปแบบของข้อมูล",
+    correct: "เวอร์ชันของ HTML",
     selected: null,
     isCorrect: false,
   },
   {
-    question: "JavaScript ใช้คำสั่งใดเพื่อวนซ้ำ Object?",
-    options: ["for-in", "for-of", "forEach", "while"],
-    correct: "for-in",
+    question: "เนื้อหาของเว็บไซต์อยู่ในส่วนใด?",
+    options: ["head", "footer", "body", "meta"],
+    correct: "body",
     selected: null,
     isCorrect: false,
   },
   {
-    question: "Ref ใน Vue 3 ใช้ทำอะไร?",
+    question: "แท็ก <hr/> ใช้ในลักษณะไหน?",
+    options: ["สร้างเส้น", "เพิ่มระยะห่าง", "เพิ่มภาพ", "จัดตำแหน่งข้อความ"],
+    correct: "สร้างเส้น",
+    selected: null,
+    isCorrect: false,
+  },
+  {
+    question: "href เป็นแอตทริบิวต์ของแท็กใด?",
+    options: ["a", "link", "img", "div"],
+    correct: "a",
+    selected: null,
+    isCorrect: false,
+  },
+  {
+    question: "แท็ก strong ใช้แท็กใดแทนได้?",
+    options: ["b", "i", "u", "em"],
+    correct: "b",
+    selected: null,
+    isCorrect: false,
+  },
+  {
+    question: "body { background-color: #f0f0f0; } หมายความว่าอะไรใน CSS?",
     options: [
-      "สร้าง Reactive Variable",
-      "จัดการ Event",
-      "เชื่อมต่อกับ DOM",
-      "ทั้งหมดถูกต้อง",
+      "กำหนดสีพื้นหลังของ body ทั้งหมด",
+      "เปลี่ยนสีตัวหนังสือใน body",
+      "เพิ่มระยะห่างระหว่างบรรทัด",
+      "เปลี่ยนสีของ border body",
     ],
-    correct: "ทั้งหมดถูกต้อง",
+    correct: "กำหนดสีพื้นหลังของ body ทั้งหมด",
     selected: null,
     isCorrect: false,
   },
   {
-    question: "Nuxt 3 ใช้คำสั่งใดเพื่อดึง Query Parameter?",
-    options: ["useRoute", "useQuery", "useParams", "useFetch"],
-    correct: "useRoute",
-    selected: null,
-    isCorrect: false,
-  },
-  {
-    question:
-      "คำสั่ง JavaScript ใดที่ใช้สำหรับทำให้คำสั่ง Async ทำงานได้ง่ายขึ้น?",
-    options: ["Promise", "await", "async/await", "setTimeout"],
-    correct: "async/await",
-    selected: null,
-    isCorrect: false,
-  },
-  {
-    question: "คำสั่งใดใน TypeScript ใช้กำหนดประเภทของตัวแปร?",
-    options: ["let", "const", "type", "interface"],
-    correct: "type",
-    selected: null,
-    isCorrect: false,
-  },
-  {
-    question: "ใน Nuxt 3, Middleware ใช้สำหรับอะไร?",
+    question: "External CSS ดีอย่างไร?",
     options: [
-      "จัดการ Routing",
-      "ตรวจสอบการเข้าถึงเพจ",
-      "ดึงข้อมูลจาก API",
-      "ทั้งหมดถูกต้อง",
+      "โหลดได้รวดเร็ว",
+      "ดูง่ายต่อการจัดการ ถ้าโปรเจกต์ขนาดใหญ่",
+      "ช่วยลดขนาดไฟล์ HTML",
+      "ปรับแต่งได้ในหน้าเดียว",
     ],
-    correct: "ตรวจสอบการเข้าถึงเพจ",
+    correct: "ดูง่ายต่อการจัดการ ถ้าโปรเจกต์ขนาดใหญ่",
     selected: null,
     isCorrect: false,
   },
   {
-    question: "JavaScript มีวิธีการเรียกใช้ฟังก์ชันใด?",
-    options: ["Call", "Apply", "Bind", "ทั้งหมดถูกต้อง"],
-    correct: "ทั้งหมดถูกต้อง",
+    question: "ชนิดข้อมูลของ JavaScript ในข้อใดเปลี่ยนแปลงค่าไม่ได้?",
+    options: ["let", "const", "var", "function"],
+    correct: "const",
+    selected: null,
+    isCorrect: false,
+  },
+  {
+    question: "const users = [] คือการประกาศตัวแปรชนิดใด?",
+    options: ["Object", "Array", "Function", "String"],
+    correct: "Array",
+    selected: null,
+    isCorrect: false,
+  },
+  {
+    question: "ถ้า const products : Product[] = [] Product คืออะไร?",
+    options: ["class", "type", "interface", "module"],
+    correct: "interface",
     selected: null,
     isCorrect: false,
   },
@@ -849,7 +983,7 @@ const questions = reactive([
 const score = ref(0);
 const isQuizComplete = ref(false);
 
-function submitQuiz() {
+const submitQuiz = () => {
   score.value = 0;
 
   questions.forEach((question: any) => {
@@ -858,7 +992,7 @@ function submitQuiz() {
   });
 
   isQuizComplete.value = true;
-}
+};
 </script>
 
 <style scoped></style>
