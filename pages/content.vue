@@ -726,7 +726,6 @@ export const useCounterStore = defineStore('counter', {
         </div>
 
         <!-- Section 7 -->
-        <!-- Section 7 -->
         <div
           v-if="selectedMenu.id == 7"
           class="p-6 bg-gray-900 text-gray-200 rounded-lg shadow-md mt-1 max-h-[550px] overflow-x-auto"
@@ -852,6 +851,8 @@ let currentUsers = 10; // ค่าที่เปลี่ยนแปลงไ
             </div>
           </div>
         </div>
+
+        
       </div>
     </div>
   </div>

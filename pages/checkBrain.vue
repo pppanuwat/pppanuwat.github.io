@@ -40,18 +40,34 @@
       <!-- เมื่อคำตอบถูกต้อง -->
       <div
         v-else
-        class="p-8 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-lg shadow-lg w-full max-w-md text-center space-y-4"
+        class="p-8 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-lg shadow-lg w-full max-w-md text-center space-y-6 flex flex-col items-center"
       >
-        <h2 class="text-2xl font-extrabold text-white">
-          <span class="text-red-500 font-bold text-4xl">ยังอีก</span>
-          เดี๋ยวเอากะโถนฟาดปาก
-        </h2>
-        <span class="text-sm text-yellow-200 font-medium"
-          >หยอก! ถูกแล้ว 🎉</span
-        >
+        <div class="w-full">
+          <h1 class="text-xl font-bold text-white mb-4">วิดีโอจาก Facebook</h1>
+          <iframe
+            src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fwatch%2F%3Fv%3D1129705481374807&autoplay=1&width=500&show_text=false&height=281&appId"
+            width="100%"
+            height="281"
+            class="rounded-lg shadow-md"
+            style="border: none; overflow: hidden"
+            scrolling="no"
+            frameborder="0"
+            allowfullscreen="true"
+            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+          ></iframe>
+        </div>
+        <div class="text-center">
+          <h2 class="text-2xl font-extrabold text-white">
+            <span class="text-red-500 font-bold text-4xl">ยังอีก</span>
+            เดี๋ยวเอากะโถนฟาดปาก
+          </h2>
+          <span class="text-sm text-yellow-200 font-medium"
+            >หยอก! ถูกแล้ว 🎉</span
+          >
+        </div>
         <button
           @click="goToContent"
-          class="w-full bg-black text-white px-5 py-3 rounded-md shadow-md hover:bg-green-500 transition-all duration-300 ease-in-out"
+          class="w-full max-w-xs bg-black text-white px-5 py-3 rounded-md shadow-md hover:bg-green-500 transition-all duration-300 ease-in-out"
         >
           เข้าสู่เนื้อหากันเลยวัยรุ่น
         </button>
