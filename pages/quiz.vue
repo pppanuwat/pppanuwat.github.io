@@ -304,7 +304,7 @@
                 ใช้คำสั่งต่อไปนี้ใน Terminal เพื่อเพิ่ม Tailwind CSS ในโปรเจกต์:
                 <div class="bg-gray-800 p-4 mt-2 rounded-lg">
                   <code class="text-green-400">
-                    npm install -D tailwindcss postcss autoprefixer
+                    yarn add -D tailwindcss postcss autoprefixer
                   </code>
                 </div>
               </li>
