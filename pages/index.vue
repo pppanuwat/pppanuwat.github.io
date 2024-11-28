@@ -756,7 +756,7 @@ const selectMenu = (menu: (typeof menus)[0]) => {
 
 const questions = reactive([
   {
-    question: "ปี 2024 สิ่งที่คนไทยควรทำมากที่สุดคืออะไร?",
+    question: "ปี 2024 สิ่งที่คนไทยควรทำมากที่สุดคืออะไร ?",
     options: [
       "ปลดหนี้ กยศ.",
       "รีวิวหมูกระทะใน TikTok",
@@ -767,6 +767,7 @@ const questions = reactive([
     selected: null,
     isCorrect: false,
   },
+
   {
     question: "AI ในปี 2024 มีพฤติกรรมอย่างไร?",
     options: [
