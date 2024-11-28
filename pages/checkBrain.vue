@@ -1,103 +1,102 @@
 <template>
-  <div>
+  <div
+    class="flex items-center justify-center min-h-screen bg-pink-200 text-gray-800"
+  >
+    <!-- Container -->
     <div
-      class="flex items-center justify-center min-h-screen bg-gray-900 text-gray-200"
+      v-if="!isUnlocked"
+      class="p-8 bg-white rounded-xl shadow-lg w-full max-w-md text-center space-y-6 border-4 border-dashed border-purple-500"
     >
-      <!-- Container -->
-      <div
-        v-if="!isUnlocked"
-        class="p-8 bg-gray-800 rounded-lg shadow-md w-full max-w-md text-center space-y-6"
-      >
-        <!-- คำถาม -->
-        <h2 class="text-xl font-bold mb-4">
-          ตอบคำถามเพื่อเข้าถึงเนื้อหานาจาาา
-        </h2>
-        <p class="text-lg">คำถาม:เมื่อวานแฟร์ใส่ชุดสีอะไรจ้ะ ?</p>
+      <!-- คำถาม -->
+      <h2 class="text-2xl font-bold text-purple-700 mb-4">
+        ⚠️ คำถามทดสอบ IQ 🌟
+      </h2>
+      <p class="text-lg font-bold">
+        "เมื่อวานคือวันอังคาร แล้ววันนี้วันอะไร? 🤔"
+      </p>
 
-        <!-- กล่องกรอกคำตอบ -->
-        <input
-          v-model="userAnswer"
-          type="text"
-          placeholder="พิมพ์คำตอบของคุณ"
-          class="w-full px-4 py-2 rounded-md text-gray-900 focus:outline-none focus:ring focus:ring-blue-400"
+      <!-- กล่องกรอกคำตอบ -->
+      <input
+        v-model="userAnswer"
+        type="text"
+        placeholder="ทายมาเลยจ้า"
+        class="w-full px-4 py-2 rounded-lg border-2 border-dashed border-pink-400 text-gray-900 text-center focus:ring focus:ring-pink-500"
+      />
+
+      <!-- ปุ่มยืนยัน -->
+      <button
+        @click="confirmAnswer"
+        class="w-full bg-gradient-to-r from-yellow-400 to-red-500 text-white font-bold px-4 py-2 rounded-lg shadow-md hover:scale-105 transition-transform"
+      >
+        ✅ ส่งคำตอบ!
+      </button>
+
+      <!-- แสดง GIF ตลกเมื่อคำตอบผิด -->
+      <div v-if="errorMessage" class="mt-4 space-y-2">
+        <p class="text-red-500 font-bold text-xl animate-bounce">
+          ❌ {{ errorMessage }}
+        </p>
+        <img
+          :src="randomGif"
+          alt="ผิดแล้วนะ"
+          class="rounded-lg mx-auto shadow-md"
         />
-
-        <!-- ปุ่มยืนยัน -->
-        <button
-          @click="confirmAnswer"
-          class="w-full bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
-        >
-          ยืนยันคำตอบ
-        </button>
-
-        <!-- แสดง GIF ตลกเมื่อคำตอบผิด -->
-        <div v-if="errorMessage" class="mt-4">
-          <p class="text-red-400 mb-2">{{ errorMessage }}</p>
-          <img :src="randomGif" alt="ผิดแล้วนะ" class="rounded-md mx-auto" />
-        </div>
       </div>
+    </div>
 
-      <!-- เมื่อคำตอบถูกต้อง -->
-      <div
-        v-else
-        class="p-8 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-lg shadow-lg w-full max-w-md text-center space-y-6 flex flex-col items-center"
+    <!-- เมื่อคำตอบถูกต้อง -->
+    <div
+      v-else
+      class="p-8 bg-gradient-to-tr from-green-400 to-blue-500 rounded-xl shadow-lg w-full max-w-md text-center space-y-6 flex flex-col items-center border-4 border-yellow-500"
+    >
+      <h1 class="text-3xl font-extrabold text-white">🥳 คุณคืออัจฉริยะ! 🎉</h1>
+      <iframe
+        src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"
+        width="100%"
+        height="281"
+        class="rounded-xl shadow-lg border-4 border-red-400"
+        style="border: none; overflow: hidden"
+        scrolling="no"
+        frameborder="0"
+        allowfullscreen
+      ></iframe>
+      <p class="text-lg font-medium text-yellow-100">
+        "ยินดีด้วย! คุณผ่านด่านความยากนี้แล้ว 🤩"
+      </p>
+      <button
+        @click="goToContent"
+        class="w-full max-w-xs bg-white text-purple-800 font-bold px-5 py-3 rounded-lg shadow-lg hover:scale-110 transition-transform"
       >
-        <div class="w-full">
-          <h1 class="text-xl font-bold text-white mb-4">กด play clip ก่อน</h1>
-          <iframe
-            src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fwatch%2F%3Fv%3D1129705481374807&autoplay=1&width=500&show_text=false&height=281&appId"
-            width="100%"
-            height="281"
-            class="rounded-lg shadow-md"
-            style="border: none; overflow: hidden"
-            scrolling="no"
-            frameborder="0"
-            allowfullscreen="true"
-            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-          ></iframe>
-          
-        </div>
-        <div class="text-center">
-          <h2 class="text-2xl font-extrabold text-white">
-            <span class="text-red-500 font-bold text-4xl">ยังอีก</span>
-            เดี๋ยวเอากะโถนฟาดปาก
-          </h2>
-          <span class="text-sm text-yellow-200 font-medium"
-            >หยอก! ถูกแล้ว 🎉</span
-          >
-        </div>
-        <button
-          @click="goToContent"
-          class="w-full max-w-xs bg-black text-white px-5 py-3 rounded-md shadow-md hover:bg-green-500 transition-all duration-300 ease-in-out"
-        >
-          เข้าสู่เนื้อหากันเลยวัยรุ่น
-        </button>
-      </div>
+        🔥 ลุยต่อเลย!
+      </button>
     </div>
 
     <!-- Modal for confirmation -->
     <div
       v-if="showConfirmModal"
-      class="fixed inset-0 bg-gray-900 bg-opacity-80 flex items-center justify-center z-50"
+      class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50"
     >
-      <div class="bg-white p-8 rounded-lg shadow-2xl w-96 space-y-6">
-        <h3 class="text-2xl font-bold text-gray-800">ยืนยันคำตอบ</h3>
-        <p class="text-gray-600 text-center">
-          โยมแน่ใจหรือไม่ว่าต้องการตอบว่า
-          <span class="font-semibold text-blue-500">"{{ userAnswer }}"</span> ?
+      <div
+        class="bg-yellow-100 p-8 rounded-lg shadow-2xl w-96 space-y-6 border-4 border-dashed border-pink-500"
+      >
+        <h3 class="text-2xl font-extrabold text-gray-800">🤔 แน่ใจเหรอ?</h3>
+        <p class="text-gray-700 text-center">
+          "โยมจะตอบว่า
+          <span class="font-semibold text-red-500">"{{ userAnswer }}"</span>
+          จริงดิ?"
         </p>
         <div class="flex justify-between gap-4">
           <button
             @click="checkAnswer"
-            class="bg-green-500 text-white px-5 py-3 rounded-md shadow-md hover:bg-green-600 transition-all duration-300 ease-in-out w-full"
+            class="bg-green-500 text-white px-5 py-3 rounded-lg shadow-lg hover:scale-105 transition-transform w-full"
           >
-            แมน
+            ✅ แน่สิ!
           </button>
           <button
             @click="cancelConfirmation"
-            class="bg-red-500 text-white px-5 py-3 rounded-md shadow-md hover:bg-red-600 transition-all duration-300 ease-in-out w-full"
+            class="bg-red-500 text-white px-5 py-3 rounded-lg shadow-lg hover:scale-105 transition-transform w-full"
           >
-            บ่
+            ❌ ยกเลิก!
           </button>
         </div>
       </div>
@@ -117,21 +116,20 @@ const router = useRouter(); // ใช้เปลี่ยนหน้า
 const randomGif = ref(""); // เก็บ URL ของ GIF ที่จะสุ่ม
 
 // คำตอบที่ถูกต้อง
-const correctAnswer = "ขาว";
+const correctAnswer = "พฤหัสบดี";
 
 const errorMessages = [
-  "ผิดฮาฟฟ! ลองคิสอีกที ",
-  "ยังไม่ถูก อีกทีๆ",
-  "อุ๊บส์! คำตอบผิดจ้า",
-  "คิดใหม่หน่อย",
-  "อย่าหลงทางงหนู",
+  "😂 ผิดแล้วนะจ๊ะ!",
+  "ยังไม่ใช่! ลองใหม่หน่อยเร็ว!",
+  "โอ้โน้ว~ ไม่ถูกอีกแล้วว",
+  "คำตอบนี้ดูแปลกไปหน่อยนะ~",
 ];
 
 const gifs = [
-  "https://media.giphy.com/media/l3q2K5jinAlChoCLS/giphy.gif", // GIF ตลก
-  "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExanpxYjBxN3VxbWxwODI3Z2d6anhmOTB2aGdrYXV2Y2VkNXRhOTN6dCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/61lpuBy8xTVARQewI5/giphy.gif", // GIF ที่แสดงความตกใจ
-  "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExdmVtNW15OG9ibjA2czcwczl6cW1qcDVudjh2d2RibGtsNDk0eTg2cCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/8lgqAbycBjosxjfi9k/giphy.gif", // GIF ตลก
-  "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExeTg0dnFlZW52ZDBmOGc2eGVtcTBtZ3J3b210YWE1anVuNWo5NTdpdyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Lk023zZqHJ3Zz4rxtV/giphy.gif", // GIF สุนัข
+  "https://media.giphy.com/media/3o7aD4smA5RdFdcTUg/giphy.gif",
+  "https://media.giphy.com/media/L95W4wv8nnb9K/giphy.gif",
+  "https://media.giphy.com/media/l4FGuhL4U2WyjdkaY/giphy.gif",
+  "https://media.giphy.com/media/l0MYEqEzwMWFCg8rm/giphy.gif",
 ];
 
 // ฟังก์ชันสำหรับแสดง modal ยืนยันคำตอบ
@@ -164,10 +162,10 @@ const checkAnswer = () => {
 
 // ฟังก์ชันเปลี่ยนหน้าไปที่เนื้อหา
 const goToContent = () => {
-  router.push("/content"); // เปลี่ยนไปยังหน้าเนื้อหา
+  router.push("/quiz"); // เปลี่ยนไปยังหน้าเนื้อหา
 };
 </script>
 
 <style scoped>
-/* Optional: Style modal to make it look better */
+/* Optional: Style animations */
 </style>
