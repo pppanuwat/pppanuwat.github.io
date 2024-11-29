@@ -851,6 +851,116 @@ let currentUsers = 10; // ค่าที่เปลี่ยนแปลงไ
             </div>
           </div>
         </div>
+
+        <!-- Section 8 -->
+        <div
+          v-if="selectedMenu.id == 8"
+          class="p-6 bg-gray-900 text-gray-200 rounded-lg shadow-md mt-1 max-h-[550px] overflow-x-auto"
+        >
+          <div class="space-y-6">
+            <!-- หัวข้อหลัก -->
+            <h1 class="text-xl font-bold text-purple-400">
+              Section 8: การติดตั้งและใช้งาน Axios ใน Nuxt 3
+            </h1>
+
+            <!-- คำอธิบาย -->
+            <p class="text-lg">
+              Axios เป็นไลบรารี HTTP Client ที่ใช้งานง่ายใน JavaScript
+              และสามารถใช้ดึงข้อมูล API ได้สะดวก ใน Nuxt 3 คุณสามารถใช้ Axios
+              ร่วมกับ TypeScript เพื่อจัดการข้อมูลอย่างมีประสิทธิภาพ
+            </p>
+
+            <!-- ขั้นตอนการติดตั้ง -->
+            <div>
+              <h2
+                class="text-lg font-bold border-l-4 border-purple-400 pl-4 mb-4"
+              >
+                1. การติดตั้ง Axios
+              </h2>
+              <p class="text-md">
+                ใช้คำสั่งด้านล่างเพื่อติดตั้ง Axios และ TypeScript typings:
+              </p>
+              <pre class="bg-gray-800 text-white rounded p-2 mt-2">
+# ติดตั้ง Axios
+yarn add axios
+
+# ติดตั้ง typings สำหรับ TypeScript
+yarn add -D @types/axios
+      </pre
+              >
+              <p class="text-md">
+                คุณสามารถใช้ `npm install` แทน `yarn add` ได้เช่นกัน
+              </p>
+            </div>
+
+            <!-- ตัวอย่างการใช้งาน -->
+            <div>
+              <h2
+                class="text-lg font-bold border-l-4 border-purple-400 pl-4 mb-4"
+              >
+                2. การใช้งาน Axios ใน Nuxt 3
+              </h2>
+              <p class="text-md">
+                ตัวอย่างการดึงข้อมูล API ด้วย Axios ในฟังก์ชัน `setup`:
+              </p>
+              <pre class="bg-gray-800 text-white rounded p-2 mt-2">
+                    <img src="/image.png" alt="">
+      </pre>
+              <p class="text-md">
+                ในตัวอย่างนี้ เราใช้ `onMounted` เพื่อเรียก API
+                เมื่อคอมโพเนนต์พร้อมใช้งาน
+              </p>
+            </div>
+
+            <!-- การปรับปรุงโค้ดด้วย Axios Instance -->
+            <div>
+              <h2
+                class="text-lg font-bold border-l-4 border-purple-400 pl-4 mb-4"
+              >
+                3. การปรับปรุงด้วย Axios Instance
+              </h2>
+              <p class="text-md">
+                การสร้าง Axios instance ช่วยให้ตั้งค่า `baseURL` และ `headers`
+                ได้ง่าย:
+              </p>
+              <pre class="bg-gray-800 text-white rounded p-2 mt-2">
+// plugins/axios.ts
+import axios from "axios";
+
+const axiosInstance = axios.create({
+  baseURL: "https://fakestoreapi.com/",
+  timeout: 5000,
+});
+
+export default axiosInstance;
+      </pre
+              >
+              <p class="text-md">
+                คุณสามารถนำ instance นี้ไปใช้งานในคอมโพเนนต์:
+              </p>
+              <pre class="bg-gray-800 text-white rounded p-2 mt-2">
+                  <img src="/image copy.png" alt="">
+      </pre>
+            </div>
+
+            <!-- สรุป -->
+            <div>
+              <h2
+                class="text-lg font-bold border-l-4 border-purple-400 pl-4 mb-4"
+              >
+                4. ข้อดีของการใช้ Axios
+              </h2>
+              <ul class="list-disc pl-6">
+                <li>ใช้งานง่าย และรองรับ Promise</li>
+                <li>จัดการ header และ token ได้สะดวก</li>
+                <li>รองรับการใช้งาน TypeScript</li>
+                <li>
+                  สามารถตั้งค่า Interceptor เพื่อจัดการ error หรือ token ได้
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -867,6 +977,7 @@ const menus = [
   { id: 5, name: "บทเรียนที่ 5", content: "component" },
   { id: 6, name: "บทเรียนที่ 6", content: "pinia" },
   { id: 7, name: "บทเรียนที่ 7", content: "const" },
+  { id: 8, name: "บทเรียนที่ 8", content: "axios" },
 ];
 
 // เมนูที่ถูกเลือก
