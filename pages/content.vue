@@ -961,6 +961,148 @@ export default axiosInstance;
             </div>
           </div>
         </div>
+        <!-- Section 9 -->
+        <div
+          v-if="selectedMenu.id == 9"
+          class="p-6 bg-gray-900 text-gray-200 rounded-lg shadow-md mt-1 max-h-[550px] overflow-x-auto"
+        >
+          <div class="space-y-6">
+            <!-- หัวข้อหลัก -->
+            <h1 class="text-xl font-bold text-green-400">
+              Section 9: การใช้งาน HTTP Method: GET, POST, PUT, และ PATCH
+            </h1>
+
+            <!-- คำอธิบาย -->
+            <p class="text-lg">
+              HTTP Methods ใช้สำหรับระบุประเภทของการร้องขอ (Request) ไปยัง API
+              เช่น การดึงข้อมูล เพิ่มข้อมูล หรือปรับปรุงข้อมูล
+              ในส่วนนี้จะแสดงตัวอย่างการใช้งาน Methods ต่าง ๆ ด้วย Axios
+            </p>
+
+            <!-- Method GET -->
+            <div>
+              <h2
+                class="text-lg font-bold border-l-4 border-green-400 pl-4 mb-4"
+              >
+                1. Method GET
+              </h2>
+              <p class="text-md">ใช้สำหรับดึงข้อมูลจาก API:</p>
+              <pre class="bg-gray-800 text-white rounded p-2 mt-2">
+// GET: ดึงข้อมูลจาก API
+import { onMounted } from "vue";
+import axios from "axios";
+
+onMounted(async () => {
+  try {
+    const response = await axios.get("https://fakestoreapi.com/products");
+    console.log(response.data);
+  } catch (error) {
+    console.error(error.message);
+  }
+});
+      </pre
+              >
+            </div>
+
+            <!-- Method POST -->
+            <div>
+              <h2
+                class="text-lg font-bold border-l-4 border-green-400 pl-4 mb-4"
+              >
+                2. Method POST
+              </h2>
+              <p class="text-md">ใช้สำหรับส่งข้อมูลใหม่ไปยัง API:</p>
+              <pre class="bg-gray-800 text-white rounded p-2 mt-2">
+// POST: เพิ่มข้อมูลใหม่
+const createProduct = async () => {
+  try {
+    const payload = { title: "New Product", price: 19.99 };
+    const response = await axios.post(
+      "https://fakestoreapi.com/products",
+      payload
+    );
+    console.log(response.data);
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+createProduct();
+      </pre
+              >
+            </div>
+
+            <!-- Method PUT -->
+            <div>
+              <h2
+                class="text-lg font-bold border-l-4 border-green-400 pl-4 mb-4"
+              >
+                3. Method PUT
+              </h2>
+              <p class="text-md">ใช้สำหรับแทนที่ข้อมูลทั้งหมดใน API:</p>
+              <pre class="bg-gray-800 text-white rounded p-2 mt-2">
+// PUT: แก้ไขข้อมูลทั้งหมด
+const updateProduct = async () => {
+  try {
+    const payload = { title: "Updated Product", price: 29.99 };
+    const response = await axios.put(
+      "https://fakestoreapi.com/products/1",
+      payload
+    );
+    console.log(response.data);
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+updateProduct();
+      </pre
+              >
+            </div>
+
+            <!-- Method PATCH -->
+            <div>
+              <h2
+                class="text-lg font-bold border-l-4 border-green-400 pl-4 mb-4"
+              >
+                4. Method PATCH
+              </h2>
+              <p class="text-md">ใช้สำหรับแก้ไขข้อมูลบางส่วนใน API:</p>
+              <pre class="bg-gray-800 text-white rounded p-2 mt-2">
+// PATCH: แก้ไขข้อมูลบางส่วน
+const patchProduct = async () => {
+  try {
+    const payload = { price: 24.99 };
+    const response = await axios.patch(
+      "https://fakestoreapi.com/products/1",
+      payload
+    );
+    console.log(response.data);
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+patchProduct();
+      </pre
+              >
+            </div>
+
+            <!-- สรุป -->
+            <div>
+              <h2
+                class="text-lg font-bold border-l-4 border-green-400 pl-4 mb-4"
+              >
+                5. ข้อแตกต่างระหว่าง PUT และ PATCH
+              </h2>
+              <ul class="list-disc pl-6 space-y-2">
+                <li>
+                  <strong>PUT:</strong> ใช้สำหรับแทนที่ข้อมูลทั้งหมดในทรัพยากร
+                </li>
+                <li>
+                  <strong>PATCH:</strong> ใช้สำหรับแก้ไขข้อมูลบางส่วนในทรัพยากร
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -978,6 +1120,7 @@ const menus = [
   { id: 6, name: "บทเรียนที่ 6", content: "pinia" },
   { id: 7, name: "บทเรียนที่ 7", content: "const" },
   { id: 8, name: "บทเรียนที่ 8", content: "axios" },
+  { id: 9, name: "บทเรียนที่ 9", content: "method" },
 ];
 
 // เมนูที่ถูกเลือก
