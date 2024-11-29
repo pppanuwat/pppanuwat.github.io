@@ -967,6 +967,11 @@ export default axiosInstance;
 </template>
 
 <script setup lang="ts">
+
+definePageMeta({
+  middleware: "auth",
+});
+
 // รายการเมนู
 const menus = [
   { id: 0, name: "ทำควิชเล่นๆ นะ ฮาฟฟู่วววว", content: "ฮิฮิ" },

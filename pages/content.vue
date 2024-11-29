@@ -304,7 +304,7 @@
                 ใช้คำสั่งต่อไปนี้ใน Terminal เพื่อเพิ่ม Tailwind CSS ในโปรเจกต์:
                 <div class="bg-gray-800 p-4 mt-2 rounded-lg">
                   <code class="text-green-400">
-                    npm install -D tailwindcss postcss autoprefixer
+                    yarn add -D tailwindcss postcss autoprefixer
                   </code>
                 </div>
               </li>
@@ -851,15 +851,122 @@ let currentUsers = 10; // ค่าที่เปลี่ยนแปลงไ
             </div>
           </div>
         </div>
+
+        <!-- Section 8 -->
+        <div
+          v-if="selectedMenu.id == 8"
+          class="p-6 bg-gray-900 text-gray-200 rounded-lg shadow-md mt-1 max-h-[550px] overflow-x-auto"
+        >
+          <div class="space-y-6">
+            <!-- หัวข้อหลัก -->
+            <h1 class="text-xl font-bold text-purple-400">
+              Section 8: การติดตั้งและใช้งาน Axios ใน Nuxt 3
+            </h1>
+
+            <!-- คำอธิบาย -->
+            <p class="text-lg">
+              Axios เป็นไลบรารี HTTP Client ที่ใช้งานง่ายใน JavaScript
+              และสามารถใช้ดึงข้อมูล API ได้สะดวก ใน Nuxt 3 คุณสามารถใช้ Axios
+              ร่วมกับ TypeScript เพื่อจัดการข้อมูลอย่างมีประสิทธิภาพ
+            </p>
+
+            <!-- ขั้นตอนการติดตั้ง -->
+            <div>
+              <h2
+                class="text-lg font-bold border-l-4 border-purple-400 pl-4 mb-4"
+              >
+                1. การติดตั้ง Axios
+              </h2>
+              <p class="text-md">
+                ใช้คำสั่งด้านล่างเพื่อติดตั้ง Axios และ TypeScript typings:
+              </p>
+              <pre class="bg-gray-800 text-white rounded p-2 mt-2">
+# ติดตั้ง Axios
+yarn add axios
+
+# ติดตั้ง typings สำหรับ TypeScript
+yarn add -D @types/axios
+      </pre
+              >
+              <p class="text-md">
+                คุณสามารถใช้ `npm install` แทน `yarn add` ได้เช่นกัน
+              </p>
+            </div>
+
+            <!-- ตัวอย่างการใช้งาน -->
+            <div>
+              <h2
+                class="text-lg font-bold border-l-4 border-purple-400 pl-4 mb-4"
+              >
+                2. การใช้งาน Axios ใน Nuxt 3
+              </h2>
+              <p class="text-md">
+                ตัวอย่างการดึงข้อมูล API ด้วย Axios ในฟังก์ชัน `setup`:
+              </p>
+              <pre class="bg-gray-800 text-white rounded p-2 mt-2">
+                    <img src="/image.png" alt="">
+      </pre>
+              <p class="text-md">
+                ในตัวอย่างนี้ เราใช้ `onMounted` เพื่อเรียก API
+                เมื่อคอมโพเนนต์พร้อมใช้งาน
+              </p>
+            </div>
+
+            <!-- การปรับปรุงโค้ดด้วย Axios Instance -->
+            <div>
+              <h2
+                class="text-lg font-bold border-l-4 border-purple-400 pl-4 mb-4"
+              >
+                3. การปรับปรุงด้วย Axios Instance
+              </h2>
+              <p class="text-md">
+                การสร้าง Axios instance ช่วยให้ตั้งค่า `baseURL` และ `headers`
+                ได้ง่าย:
+              </p>
+              <pre class="bg-gray-800 text-white rounded p-2 mt-2">
+// plugins/axios.ts
+import axios from "axios";
+
+const axiosInstance = axios.create({
+  baseURL: "https://fakestoreapi.com/",
+  timeout: 5000,
+});
+
+export default axiosInstance;
+      </pre
+              >
+              <p class="text-md">
+                คุณสามารถนำ instance นี้ไปใช้งานในคอมโพเนนต์:
+              </p>
+              <pre class="bg-gray-800 text-white rounded p-2 mt-2">
+                  <img src="/image copy.png" alt="">
+      </pre>
+            </div>
+
+            <!-- สรุป -->
+            <div>
+              <h2
+                class="text-lg font-bold border-l-4 border-purple-400 pl-4 mb-4"
+              >
+                4. ข้อดีของการใช้ Axios
+              </h2>
+              <ul class="list-disc pl-6">
+                <li>ใช้งานง่าย และรองรับ Promise</li>
+                <li>จัดการ header และ token ได้สะดวก</li>
+                <li>รองรับการใช้งาน TypeScript</li>
+                <li>
+                  สามารถตั้งค่า Interceptor เพื่อจัดการ error หรือ token ได้
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-definePageMeta({
-  middleware: "auth",
-});
 // รายการเมนู
 const menus = [
   { id: 0, name: "ทำควิชเล่นๆ นะ ฮาฟฟู่วววว", content: "ฮิฮิ" },
@@ -870,6 +977,7 @@ const menus = [
   { id: 5, name: "บทเรียนที่ 5", content: "component" },
   { id: 6, name: "บทเรียนที่ 6", content: "pinia" },
   { id: 7, name: "บทเรียนที่ 7", content: "const" },
+  { id: 8, name: "บทเรียนที่ 8", content: "axios" },
 ];
 
 // เมนูที่ถูกเลือก
@@ -884,168 +992,172 @@ const selectMenu = (menu: (typeof menus)[0]) => {
 
 const questions = reactive([
   {
-    question: "Nuxt เป็นเฟรมเวิร์กมาจากอะไร?",
-    options: ["PHP", "Python", "JavaScript", "Ruby"],
-    correct: "JavaScript",
-    selected: null,
-    isCorrect: false,
-  },
-  {
-    question: "Nuxt โดดเด่นในการใช้ทำอะไร?",
-    options: ["API Development", "SEO", "Data Analysis", "Game Development"],
-    correct: "SEO",
-    selected: null,
-    isCorrect: false,
-  },
-  {
-    question: "Nuxt สร้างแอปพลิเคชันเว็บแบบใด?",
+    question: "เหตุผลที่คนไทยนิยมกินชาบูในวันเงินเดือนออก?",
     options: [
-      "Multi-Page Applications (MPAs)",
-      "Single-Page Applications (SPAs)",
-      "Desktop Applications",
-      "Mobile Applications",
+      "มันคือวัฒนธรรม",
+      "อยากลืมความจนชั่วคราว",
+      "กินเพื่อสุขภาพ (มั้ง)",
+      "เพราะเพื่อนชวนแล้วเกรงใจ",
     ],
-    correct: "Single-Page Applications (SPAs)",
+    correct: "อยากลืมความจนชั่วคราว",
     selected: null,
     isCorrect: false,
   },
   {
-    question: "โฟลเดอร์ public ใช้เก็บอะไร?",
+    question: "ทำไมแมวถึงครองโลกในปี 2024?",
     options: [
-      "ไฟล์สคริปต์",
-      "โค้ดเซิร์ฟเวอร์",
-      "ไฟล์สื่อต่างๆ",
-      "ข้อมูลผู้ใช้",
+      "เพราะมันน่ารัก",
+      "เพราะมันจ้องเราแล้วเราต้องยอม",
+      "เพราะมันไม่เคยสนใจมนุษย์",
+      "เพราะคนแอบตั้งชื่อ 'เหมียว' เป็น Password",
     ],
-    correct: "ไฟล์สื่อต่างๆ",
+    correct: "เพราะมันจ้องเราแล้วเราต้องยอม",
     selected: null,
     isCorrect: false,
   },
   {
-    question: "NuxtLink เป็นแอตทริบิวต์แท็กแทนแท็กใด?",
-    options: ["<a>", "<div>", "<span>", "<script>"],
-    correct: "<a>",
-    selected: null,
-    isCorrect: false,
-  },
-  {
-    question: "การกำหนด scoped ในแท็ก style เพื่ออะไร?",
+    question: "คำว่า 'ลดน้ำหนัก' แปลว่าอะไรในปี 2024?",
     options: [
-      "ใช้งาน style ทุกหน้า",
-      "กำหนด style ในหน้าเดียว",
-      "ลดขนาดไฟล์ style",
-      "เพิ่มความเร็วการโหลด",
+      "คิดแต่ไม่ทำ",
+      "สมัครฟิตเนสแล้วไป 2 ครั้ง",
+      "เลิกกินข้าวเย็น (ยกเว้นวันสำคัญ)",
+      "กินหมูกระทะแล้วบอกว่าไม่กินแป้ง",
     ],
-    correct: "กำหนด style ในหน้าเดียว",
+    correct: "คิดแต่ไม่ทำ",
     selected: null,
     isCorrect: false,
   },
   {
-    question: "ถ้าต้องการเพิ่ม Header ของหน้าเว็บทุกหน้าต้องเพิ่มที่ใด?",
+    question: "ถ้าจะออกเดทกับ AI ควรพูดยังไงก่อน?",
     options: [
-      "pages/index.vue",
-      "components/Header.vue",
-      "layouts/default.vue",
-      "nuxt.config.ts",
+      "เบบี้ว่างไหมคุยกันหน่อย",
+      "ช่วยหาคำตอบที่ดีต่อใจหน่อย",
+      "หวัดดี มีข้อมูลอะไรเด็ดๆ ไหม",
+      "ช่วยแนะนำตัวเองเป็นภาษาซีชาร์ป",
     ],
-    correct: "layouts/default.vue",
+    correct: "เบบี้ว่างไหมคุยกันหน่อย",
     selected: null,
     isCorrect: false,
   },
   {
-    question: "การใช้ text-lg ในแท็ก class คืออะไร?",
+    question: "ถ้าซื้อของออนไลน์แล้วของไม่ตรงปก ควรทำยังไง?",
     options: [
-      "กำหนดขนาดตัวอักษร 16px",
-      "กำหนดขนาดตัวอักษร 18px",
-      "กำหนดขนาดตัวอักษร 20px",
-      "กำหนดขนาดตัวอักษร 14px",
+      "โพสต์บ่นใน Facebook",
+      "ถ่ายรูปลงกลุ่ม 'พวกเราโดนโกง'",
+      "ใช้ไปเถอะ ชีวิตมันเศร้าอยู่แล้ว",
+      "ส่งคืนแล้วเขียนรีวิว 0 ดาว",
     ],
-    correct: "กำหนดขนาดตัวอักษร 18px",
+    correct: "โพสต์บ่นใน Facebook",
     selected: null,
     isCorrect: false,
   },
   {
-    question:
-      "ถ้าต้องการจัดการเนื้อหาของหน้าเว็บไซต์ที่ขนาด 1024px ขึ้นไป ต้องใช้คำสั่งใด?",
+    question: "ปี 2024 ถ้าจะพักผ่อน ควรไปไหน?",
     options: [
-      "xl:คำสั่งที่ต้องการ",
-      "md:คำสั่งที่ต้องการ",
-      "lg:คำสั่งที่ต้องการ",
-      "sm:คำสั่งที่ต้องการ",
+      "ทะเลใกล้บ้าน",
+      "ห้างสรรพสินค้า",
+      "คาเฟ่แมว (ที่มี Wi-Fi ฟรี)",
+      "นอนอยู่บ้านและอ้างว่าไม่มีวันลา",
     ],
-    correct: "lg:คำสั่งที่ต้องการ",
+    correct: "นอนอยู่บ้านและอ้างว่าไม่มีวันลา",
     selected: null,
     isCorrect: false,
   },
   {
-    question: 'เครื่องหมาย : ของ :key="index" ใน v-for คืออะไร?',
+    question: "ทำไม TikTok ถึงยังฮิตในปี 2024?",
     options: [
-      "ย่อมาจาก v-model",
-      "ย่อมาจาก v-bind",
-      "ย่อมาจาก v-for",
-      "ย่อมาจาก v-if",
+      "เพลงดังทุก 7 วัน",
+      "เต้นท่าเดิมก็มีคนดู",
+      "เพราะ AI รู้ว่าเราชอบดูอะไร",
+      "เพราะมันดักเวลาเราควรไปอาบน้ำ",
     ],
-    correct: "ย่อมาจาก v-bind",
+    correct: "เพราะมันดักเวลาเราควรไปอาบน้ำ",
     selected: null,
     isCorrect: false,
   },
   {
-    question: 'item และ i ใน v-for="(item, i) in menus" คืออะไร?',
+    question: "อะไรคือเป้าหมายปีใหม่ของคนส่วนใหญ่?",
     options: [
-      "ตัวแปรของ Vue และ JavaScript",
-      "ชื่อไฟล์และลำดับ",
-      "ข้อมูลที่ได้จากการ loop และลำดับของการ loop",
-      "ค่าคงที่และตัวแปร",
+      "นอนให้ครบ 8 ชั่วโมง",
+      "ลดน้ำหนัก 5 กิโล (แต่เพิ่ม 10)",
+      "หยอดกระปุกให้ครบ 1,000 บาท",
+      "เลิกบ่นเรื่องเดิมในโซเชียล",
     ],
-    correct: "ข้อมูลที่ได้จากการ loop และลำดับของการ loop",
+    correct: "ลดน้ำหนัก 5 กิโล (แต่เพิ่ม 10)",
     selected: null,
     isCorrect: false,
   },
   {
-    question: "ถ้าต้องการให้เว็บเร็วขึ้นควรทำอย่างไร?",
-    options: [
-      "เพิ่มจำนวน JavaScript ให้เยอะที่สุด",
-      "ลบไฟล์ .html ทิ้งทั้งหมด",
-      "ปิด Wi-Fi แล้วเปิดใหม่",
-      "ใช้ CDN และลดขนาดไฟล์",
-    ],
-    correct: "ใช้ CDN และลดขนาดไฟล์",
+    question: "วิธีแก้ปัญหารถติดที่ง่ายที่สุดคืออะไร?",
+    options: ["นั่งรถไฟฟ้า", "ขี่จักรยาน", "นั่งวินมอเตอร์ไซค์", "ทำใจ"],
+    correct: "ทำใจ",
     selected: null,
     isCorrect: false,
   },
   {
-    question: "Nuxt 3 จะเร็วขึ้นถ้าทำสิ่งใด?",
+    question: "ปี 2024 งานไหนที่มนุษย์เงินเดือนอยากหนีไปทำ?",
     options: [
-      "นั่งสมาธิก่อนเปิดโปรเจกต์",
-      "เพิ่ม `setTimeout` 1 วิทุกฟังก์ชัน",
-      "เขียนโค้ดภาษา PHP แทน",
-      "เปิดโหมด Static และปรับ Cache",
+      "ขายลูกชิ้นทอด",
+      "เปิดคาเฟ่เล็กๆ ในป่า",
+      "เป็นเจ้าของฟาร์มแมว",
+      "ไม่ทำอะไรเลย แต่ได้เงิน",
     ],
-    correct: "เปิดโหมด Static และปรับ Cache",
+    correct: "ไม่ทำอะไรเลย แต่ได้เงิน",
     selected: null,
     isCorrect: false,
   },
   {
-    question: "ทำไมต้องใช้ Tailwind CSS?",
+    question: "ทำไมกาแฟถึงแพงขึ้นในปี 2024?",
     options: [
-      "เพราะมันดูเท่และทันสมัย",
-      "เพื่อให้มีงานทำในอนาคต",
-      "ใช้สร้างเว็บไซต์ที่เหมือนกันทุกคน",
-      "เพราะเขียน CSS เร็วและง่ายขึ้น",
+      "เพราะเป็น Specialty Coffee",
+      "เพราะใส่ลาเต้อาร์ตมากเกิน",
+      "เพราะคนอยากได้แก้วที่ Instagrammable",
+      "เพราะทุกอย่างแพงยกเว้นเงินเดือนเรา",
     ],
-    correct: "เพราะเขียน CSS เร็วและง่ายขึ้น",
+    correct: "เพราะทุกอย่างแพงยกเว้นเงินเดือนเรา",
     selected: null,
     isCorrect: false,
   },
   {
-    question: "อะไรคือเหตุผลที่โค้ดไม่ทำงาน?",
+    question: "แคปชันไหนเหมาะกับคนที่ไปทะเลปี 2024?",
     options: [
-      "อินเทอร์เน็ตช้า",
-      "ไม่ได้อัปเดต Windows",
-      "ตัว Bug ไม่ยอมออก",
-      "เขียนผิดเองแหละ ยอมรับเถอะ",
+      "'ไม่มีหรอกคนเคียงข้าง มีแต่ทะเลข้างหน้า'",
+      "'เหงาเหมือนน้ำทะเลที่ไร้คลื่น'",
+      "'มาเพราะใจเรียกร้อง ไม่ใช่เพราะโปรโมชัน'",
+      "'รักไม่ยุ่ง มุ่งแต่ถ่ายรูปกับลมทะเล'",
     ],
-    correct: "เขียนผิดเองแหละ ยอมรับเถอะ",
+    correct: "'ไม่มีหรอกคนเคียงข้าง มีแต่ทะเลข้างหน้า'",
+    selected: null,
+    isCorrect: false,
+  },
+  {
+    question: "คำพูดไหนทำให้รู้ว่าเพื่อนคุณเป็น Gen Z?",
+    options: ["'อะหรือ'", "'ได้นะ'", "'มันปังมาก'", "'ป่ะ ไปดอยกัน'"],
+    correct: "'อะหรือ'",
+    selected: null,
+    isCorrect: false,
+  },
+  {
+    question: "ในปี 2024 คนทำอาหารควรพูดว่าอะไรตอนทำอาหาร?",
+    options: [
+      "'สวัสดีเชฟทุกคน'",
+      "'เอาไปจิ้มกับน้ำจิ้มรสเด็ด'",
+      "'อันนี้สูตรลับเฉพาะของบ้านเรา'",
+      "'ไม่มีอะไรมาก ก็แค่ใจรัก'",
+    ],
+    correct: "'เอาไปจิ้มกับน้ำจิ้มรสเด็ด'",
+    selected: null,
+    isCorrect: false,
+  },
+  {
+    question: "เพลงที่เหมาะสำหรับงานแต่งงานในปี 2024 คือเพลงอะไร?",
+    options: [
+      "เลิกคุยทั้งอำเภอเพื่อเธอคนเดียว",
+      "รักติดไซเรน",
+      "หมอกหรือควัน",
+      "ที่ฉันยืน (อาจไม่ใช่ที่เธอยืน)",
+    ],
+    correct: "ที่ฉันยืน (อาจไม่ใช่ที่เธอยืน)",
     selected: null,
     isCorrect: false,
   },
