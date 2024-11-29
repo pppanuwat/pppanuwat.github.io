@@ -162,7 +162,7 @@ const checkAnswer = () => {
 
 // ฟังก์ชันเปลี่ยนหน้าไปที่เนื้อหา
 const goToContent = () => {
-  router.push("/quiz"); // เปลี่ยนไปยังหน้าเนื้อหา
+  router.push("/content"); // เปลี่ยนไปยังหน้าเนื้อหา
 };
 </script>
 
