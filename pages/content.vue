@@ -629,6 +629,7 @@ defineProps({
               <pre class="bg-gray-800 text-white rounded p-2 mt-2">
 # ใช้ Yarn
 yarn add pinia
+yarn add @pinia/nuxt 
       </pre
               >
               <p class="text-md">
