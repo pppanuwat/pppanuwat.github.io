@@ -100,9 +100,9 @@
                       question.isCorrect ? "ถูกต้อง" : "ผิด"
                     }})
                   </p>
-                  <p class="text-gray-400">
+                  <!-- <p class="text-gray-400">
                     - คำตอบที่ถูกต้อง: {{ question.correct }}
-                  </p>
+                  </p> -->
                 </li>
               </ul>
             </div>
