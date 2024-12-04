@@ -74,7 +74,9 @@
       v-else
       class="p-8 bg-gradient-to-tr from-green-400 to-blue-500 rounded-xl shadow-lg w-full max-w-md text-center space-y-6 flex flex-col items-center border-4 border-yellow-500"
     >
-      <h1 class="text-3xl font-extrabold text-white">🥳 คุณคืออัจฉริยะฮิฮิ! 🎉</h1>
+      <h1 class="text-3xl font-extrabold text-white">
+        🥳 คุณคืออัจฉริยะฮิฮิ! 🎉
+      </h1>
       <iframe
         src="https://www.youtube.com/embed/q0T_nEdXSfY?autoplay=1&mute=1"
         width="100%"
@@ -115,7 +117,6 @@ const songs = [
     name: "ซ่อนกลิ่น",
     audio: "/audio/quiz.mp3", // URL ของไฟล์เสียง
   },
-
 ];
 
 const currentSong = ref(0); // เพลงปัจจุบัน
@@ -163,14 +164,15 @@ const confirmAnswer = () => {
 };
 
 // ฟังก์ชันเปลี่ยนไปยังเพลงถัดไป
-const goToNextSong = () => {
-  currentSong.value++;
-  if (currentSong.value >= songs.length) {
-    currentSong.value = 0; // รีเซ็ตเป็นเพลงแรกถ้าครบแล้ว
-  }
-  correctAnswer.value = songs[currentSong.value].name;
-  userAnswer.value = "";
-  isUnlocked.value = false;
-  playSong();
+const goToContent = () => {
+  router.push("/content");
+  // currentSong.value++;
+  // if (currentSong.value >= songs.length) {
+  //   currentSong.value = 0; // รีเซ็ตเป็นเพลงแรกถ้าครบแล้ว
+  // }
+  // correctAnswer.value = songs[currentSong.value].name;
+  // userAnswer.value = "";
+  // isUnlocked.value = false;
+  // playSong();
 };
 </script>
