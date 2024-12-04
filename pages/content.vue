@@ -49,16 +49,19 @@
               <div
                 v-for="(question, index) in questions"
                 :key="index"
-                class="mt-4"
+                class="mt-4 "
               >
                 <p class="text-md font-medium">
                   {{ index + 1 }}. {{ question.question }}
                 </p>
-                <div class="space-y-2">
+                <div
+               
+                 class="space-y-2 ">
                   <label
                     v-for="(option, idx) in question.options"
                     :key="idx"
                     class="block"
+                    
                   >
                     <input
                       type="radio"
@@ -66,6 +69,7 @@
                       :value="option"
                       v-model="question.selected"
                       class="mr-2"
+                      
                     />
                     {{ option }}
                   </label>
@@ -100,9 +104,9 @@
                       question.isCorrect ? "ถูกต้อง" : "ผิด"
                     }})
                   </p>
-                  <!-- <p class="text-gray-400">
+                  <p class="text-gray-400">
                     - คำตอบที่ถูกต้อง: {{ question.correct }}
-                  </p> -->
+                  </p>
                 </li>
               </ul>
             </div>
@@ -1136,267 +1140,130 @@ const selectMenu = (menu: (typeof menus)[0]) => {
 
 const questions = reactive([
   {
-    question: "Nuxt 3 ใช้สำหรับพัฒนาอะไร?",
+    question:
+      "คำสั่ง SQL เพื่อค้นหาชื่อของประธานาธิบดีที่มีลูกมากกว่า 3 คน พร้อมปีที่เข้าดำรงตำแหน่ง ข้อใดถูกต้อง?",
     options: [
-      "พัฒนา Mobile Application",
-      "พัฒนา Server-side Rendering Application",
-      "พัฒนา Desktop Application",
-      "พัฒนา CLI Tools",
+      "SELECT candidate FROM PRESIDENT WHERE service_year > 8 ORDER BY promote_year ASC",
+      "SELECT pres_name FROM PRES_MARRIAGE WHERE pres_age > 8 ORDER BY children ASC",
+      "SELECT pres_name FROM PRES_MARRIAGE WHERE pres_name IN (SELECT candidate FROM PRESIDENT WHERE service_year > 8) ORDER BY pres_age ASC",
+      "SELECT spouse_name FROM PRES_MARRIAGE WHERE children = 8 ORDER BY pres_age ASC",
     ],
-    correct: "พัฒนา Server-side Rendering Application",
+    correct:
+      "SELECT pres_name FROM PRES_MARRIAGE WHERE pres_name IN (SELECT candidate FROM PRESIDENT WHERE service_year > 8) ORDER BY pres_age ASC",
     selected: null,
     isCorrect: false,
   },
   {
-    question: "ไฟล์ nuxt.config.ts ใช้สำหรับอะไร?",
+    question:
+      "คำสั่ง SQL โดยต้องการทราบชื่อของประธานาธิบดีที่มีปีเกิดก่อนปี 1960 และมีบุตร 2 คนขึ้นไป ข้อใดถูกต้อง?",
     options: [
-      "การตั้งค่า environment variables",
-      "การตั้งค่าโปรเจกต์ เช่น plugin, build options",
-      "การจัดการ routing",
-      "การเขียน CSS แบบ scoped",
+      "SELECT candidate FROM PRESIDENT WHERE birth_year < '1960-01-01' AND candidate IN (SELECT pres_name FROM PRES_MARRIAGE WHERE children >= 2)",
+      "SELECT candidate FROM PRESIDENT WHERE promote_year < 1960 AND service_year > 2",
+      "SELECT pres_name FROM PRES_MARRIAGE WHERE pres_name IN (SELECT candidate FROM PRESIDENT WHERE birth_year < '1960-01-01') AND children < 2",
+      "SELECT pres_name FROM PRES_MARRIAGE WHERE birth_year < 1960",
     ],
-    correct: "การตั้งค่าโปรเจกต์ เช่น plugin, build options",
+    correct:
+      "SELECT candidate FROM PRESIDENT WHERE birth_year < '1960-01-01' AND candidate IN (SELECT pres_name FROM PRES_MARRIAGE WHERE children >= 2)",
     selected: null,
     isCorrect: false,
   },
   {
-    question: "โฟลเดอร์ไหนใน Nuxt 3 ที่ถูกใช้สร้าง router อัตโนมัติ?",
-    options: ["pages/", "components/", "layouts/", "store/"],
-    correct: "pages/",
-    selected: null,
-    isCorrect: false,
-  },
-  {
-    question: "วิธีใดที่ใช้ดึงข้อมูล API ใน Nuxt 3?",
-    options: ["useFetch", "useData", "useConfig", "useAsync"],
-    correct: "useFetch",
-    selected: null,
-    isCorrect: false,
-  },
-  {
-    question: "การใช้ script setup ใน Vue 3 และ Nuxt 3 มีข้อดีอย่างไร?",
+    question:
+      "คำสั่ง SQL โดยต้องการทราบจำนวนประธานาธิบดีที่แต่งงานแล้วและมีบุตรมากกว่า 1 คน ข้อใดถูกต้อง?",
     options: [
-      "ลดจำนวนโค้ดที่ซ้ำซ้อน",
-      "เพิ่มการทำงานแบบ asynchronous",
-      "รองรับการใช้ TypeScript แบบ default",
-      "ทุกข้อที่กล่าวมา",
+      "SELECT COUNT(candidate) FROM PRESIDENT WHERE promote_year IS NOT NULL",
+      "SELECT COUNT(*) FROM PRES_MARRIAGE WHERE children > 1",
+      "SELECT COUNT(DISTINCT candidate) FROM PRESIDENT WHERE candidate IN (SELECT pres_name FROM PRES_MARRIAGE WHERE children > 1)",
+      "SELECT COUNT(spouse_name) FROM PRES_MARRIAGE WHERE children = 1",
     ],
-    correct: "ทุกข้อที่กล่าวมา",
+    correct:
+      "SELECT COUNT(DISTINCT candidate) FROM PRESIDENT WHERE candidate IN (SELECT pres_name FROM PRES_MARRIAGE WHERE children > 1)",
     selected: null,
     isCorrect: false,
   },
   {
-    question: "method GET ใช้สำหรับอะไรใน HTTP request?",
+    question:
+      "หลังจากส่งคำขอไปยัง API เพื่อสร้างสินค้าสำเร็จ ระบบส่งสถานะ HTTP Response กลับมาว่า 201 สถานะ 201 หมายถึงอะไร?",
     options: [
-      "เพิ่มข้อมูลในเซิร์ฟเวอร์",
-      "อัปเดตข้อมูลบนเซิร์ฟเวอร์",
-      "ลบข้อมูลออกจากเซิร์ฟเวอร์",
-      "ดึงข้อมูลจากเซิร์ฟเวอร์",
+      "คำขอมีข้อผิดพลาดและไม่ได้รับการประมวลผล",
+      "คำขอถูกต้องและข้อมูลถูกสร้างขึ้นสำเร็จ",
+      "เซิร์ฟเวอร์ได้รับคำขอ แต่ไม่มีการเปลี่ยนแปลงใด ๆ",
+      "เซิร์ฟเวอร์ไม่สามารถประมวลผลคำขอได้",
     ],
-    correct: "ดึงข้อมูลจากเซิร์ฟเวอร์",
+    correct: "คำขอถูกต้องและข้อมูลถูกสร้างขึ้นสำเร็จ",
     selected: null,
     isCorrect: false,
   },
   {
-    question: "method POST ใช้สำหรับอะไร?",
+    question:
+      "คุณกำลังพัฒนา API และต้องการให้ API ส่งข้อความแสดงข้อผิดพลาดเมื่อไม่พบข้อมูลที่ผู้ใช้ร้องขอ สถานะ HTTP Response ใดที่เหมาะสมที่สุดสำหรับกรณีนี้?",
     options: [
-      "เพิ่มข้อมูลใหม่ลงในเซิร์ฟเวอร์",
-      "ลบข้อมูลในเซิร์ฟเวอร์",
-      "อัปเดตข้อมูลที่มีอยู่",
-      "ดึงข้อมูลจากเซิร์ฟเวอร์",
+      "200 OK",
+      "400 Bad Request",
+      "404 Not Found",
+      "500 Internal Server Error",
     ],
-    correct: "เพิ่มข้อมูลใหม่ลงในเซิร์ฟเวอร์",
+    correct: "404 Not Found",
     selected: null,
     isCorrect: false,
   },
   {
-    question: "method PATCH ใช้ต่างจาก PUT อย่างไร?",
+    question: "ถ้าคุณต้องการเพิ่มสินค้าใหม่ คุณควรใช้ HTTP Method ใด?",
+    options: ["GET", "POST", "PUT", "DELETE"],
+    correct: "POST",
+    selected: null,
+    isCorrect: false,
+  },
+  {
+    question: "ชื่อ Route ใดต่อไปนี้เหมาะสมที่สุดตามหลักการออกแบบ REST API?",
     options: [
-      "PATCH ใช้สำหรับอัปเดตข้อมูลบางส่วน",
-      "PATCH ใช้สำหรับเพิ่มข้อมูลใหม่",
-      "PATCH และ PUT ใช้งานเหมือนกัน",
-      "PATCH ใช้ลบข้อมูลในเซิร์ฟเวอร์",
+      "/getProducts",
+      "/products",
+      "/fetch_all_products",
+      "/allProducts",
     ],
-    correct: "PATCH ใช้สำหรับอัปเดตข้อมูลบางส่วน",
+    correct: "/products",
     selected: null,
     isCorrect: false,
   },
   {
-    question: "method DELETE ใช้ทำอะไร?",
+    question:
+      "คุณต้องการรัน Backend Server บนเครื่องของคุณเอง (Localhost) โดยใช้ Port 8080 URL ใดต่อไปนี้ที่ถูกต้องสำหรับการเข้าถึง API?",
     options: [
-      "เพิ่มข้อมูลใหม่ในเซิร์ฟเวอร์",
-      "อัปเดตข้อมูลในเซิร์ฟเวอร์",
-      "ลบข้อมูลออกจากเซิร์ฟเวอร์",
-      "ดึงข้อมูลจากเซิร์ฟเวอร์",
+      "http://localhost:8000",
+      "http://127.0.0.1:8080",
+      "https://192.168.1.1:8080",
+      "http://10.0.1.1:8080",
     ],
-    correct: "ลบข้อมูลออกจากเซิร์ฟเวอร์",
+    correct: "http://127.0.0.1:8080",
     selected: null,
     isCorrect: false,
   },
   {
-    question: "Axios คืออะไร?",
+    question: "JSON ข้อใดต่อไปนี้มีโครงสร้างที่ถูกต้อง?",
     options: [
-      "Library สำหรับดึงข้อมูล API",
-      "Library สำหรับจัดการ state",
-      "CLI Tool สำหรับสร้าง Vue component",
-      "UI Framework สำหรับ Vue",
+      `json { "name": "John Doe", "age": 30 }`,
+      `json { name: "John Doe", age: 30 }`,
+      `json [ "name": "John Doe", "age": 30 ]`,
+      `json { "name": "John Doe", "age": "thirty" }`,
     ],
-    correct: "Library สำหรับดึงข้อมูล API",
+    correct: `json { "name": "John Doe", "age": 30 }`,
     selected: null,
     isCorrect: false,
   },
   {
-    question: "ถ้าต้องการส่ง request ด้วย Axios แบบ GET ต้องใช้คำสั่งใด?",
+    question: "ฟังก์ชันใดต่อไปนี้ถูกต้องสำหรับการคำนวณผลรวมในภาษา Go?",
     options: [
-      "axios.get(url)",
-      "axios.post(url)",
-      "axios.delete(url)",
-      "axios.patch(url)",
+      `func sum(a int, b int) int { return a + b }`,
+      `func sum(a, b) int { return a + b }`,
+      `sum := func(a int, b int) int { a + b }`,
+      `func sum(a int, b int) int { print(a + b) }`,
     ],
-    correct: "axios.get(url)",
-    selected: null,
-    isCorrect: false,
-  },
-  {
-    question: "ถ้าต้องการส่งข้อมูล JSON ใน request ด้วย Axios ต้องใส่ข้อมูลใน key ใด?",
-    options: ["headers", "params", "body", "data"],
-    correct: "data",
-    selected: null,
-    isCorrect: false,
-  },
-  {
-    question: "Composition API ถูกใช้งานใน Vue 3 และ Nuxt 3 เพื่ออะไร?",
-    options: [
-      "เขียนโค้ดให้กระชับและจัดการง่ายขึ้น",
-      "เพิ่มฟีเจอร์ใหม่ที่ Composition API รองรับ",
-      "เพิ่มการทำงานแบบ reactive",
-      "ทุกข้อที่กล่าวมา",
-    ],
-    correct: "ทุกข้อที่กล่าวมา",
-    selected: null,
-    isCorrect: false,
-  },
-  {
-    question: "คำสั่งใดใช้เพื่อทำ class binding ใน Nuxt?",
-    options: [
-      "v-bind:class",
-      ":class",
-      "v-for:class",
-      ":if-class",
-    ],
-    correct: ":class",
-    selected: null,
-    isCorrect: false,
-  },
-  {
-    question: "ใน TypeScript ควรกำหนด type ให้กับ props ยังไง?",
-    options: [
-      "props: { name: string }",
-      "props: { name: String }",
-      "props: { name: PropType<string> }",
-      "props: { name: 'string' }",
-    ],
-    correct: "props: { name: PropType<string> }",
-    selected: null,
-    isCorrect: false,
-  },
-  {
-    question: "Nuxt 3 รองรับการสร้าง layout ไฟล์ในโฟลเดอร์ใด?",
-    options: ["pages", "layouts", "components", "middleware"],
-    correct: "layouts",
-    selected: null,
-    isCorrect: false,
-  },
-  {
-    question: "โครงสร้างพื้นฐานของ Class-based component ใน Vue ใช้คำสั่งใด?",
-    options: [
-      "defineComponent",
-      "export default class",
-      "createApp",
-      "setup()",
-    ],
-    correct: "export default class",
-    selected: null,
-    isCorrect: false,
-  },
-  {
-    question: "Props ใน Vue ใช้สำหรับอะไร?",
-    options: [
-      "ส่งข้อมูลจาก parent ไป child",
-      "ส่งข้อมูลจาก child ไป parent",
-      "เก็บค่าคงที่ที่ไม่เปลี่ยน",
-      "จัดการ state ของ component",
-    ],
-    correct: "ส่งข้อมูลจาก parent ไป child",
-    selected: null,
-    isCorrect: false,
-  },
-  {
-    question: "Ref ใน Vue 3 ใช้สำหรับอะไร?",
-    options: [
-      "สร้างค่าที่ reactive",
-      "ส่ง event ระหว่าง component",
-      "จัดการ router",
-      "กำหนด props",
-    ],
-    correct: "สร้างค่าที่ reactive",
-    selected: null,
-    isCorrect: false,
-  },
-  {
-    question: "Composition API function ใดใช้สำหรับสร้าง reactive object?",
-    options: ["reactive", "ref", "watch", "computed"],
-    correct: "reactive",
-    selected: null,
-    isCorrect: false,
-  },
-  {
-    question: "watchEffect ต่างจาก watch อย่างไร?",
-    options: [
-      "watchEffect ทำงานทันทีและไม่มี dependency",
-      "watchEffect รองรับ async โดย default",
-      "watchEffect ใช้กับ state เดียวเท่านั้น",
-      "watchEffect ใช้แทน computed",
-    ],
-    correct: "watchEffect ทำงานทันทีและไม่มี dependency",
-    selected: null,
-    isCorrect: false,
-  },
-  {
-    question: "Dynamic routing หรือ binding ใน Nuxt 3 ใช้เครื่องหมายใด?",
-    options: ["#", "*", ":", "@"],
-    correct: ":",
-    selected: null,
-    isCorrect: false,
-  },
-  {
-    question: "ถ้าใช้ ref() และต้องการดึงค่า ต้องใช้คำสั่งใด?",
-    options: [".value", ".data", ".state", ".props"],
-    correct: ".value",
-    selected: null,
-    isCorrect: false,
-  },
-  {
-    question: "Middleware ใน Nuxt 3 ใช้สำหรับอะไร?",
-    options: [
-      "จัดการ Logic ก่อนเข้าถึงหน้า",
-      "จัดการ Event ภายใน Component",
-      "เขียน CSS Scoped",
-      "จัดการ API Call",
-    ],
-    correct: "จัดการ Logic ก่อนเข้าถึงหน้า",
-    selected: null,
-    isCorrect: false,
-  },
-  {
-    question: "ถ้าอยากเพิ่ม plugin ใน Nuxt 3 ต้องใส่ไฟล์ในโฟลเดอร์ใด?",
-    options: ["plugins", "pages", "layouts", "store"],
-    correct: "plugins",
+    correct: `func sum(a int, b int) int { return a + b }`,
     selected: null,
     isCorrect: false,
   },
 ]);
-
 
 const score = ref(0);
 const isQuizComplete = ref(false);

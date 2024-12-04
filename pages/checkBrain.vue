@@ -1,26 +1,34 @@
 <template>
   <div
-    class="flex items-center justify-center min-h-screen bg-pink-200 text-gray-800"
+    class="flex items-center justify-center min-h-screen bg-gray-200 text-gray-800"
   >
     <!-- Container -->
     <div
       v-if="!isUnlocked"
-      class="p-8 bg-white rounded-xl shadow-lg w-full max-w-md text-center space-y-6 border-4 border-dashed border-purple-500"
+      class="p-8 bg-white rounded-xl shadow-lg w-full max-w-md text-center space-y-6 border-4 border-dashed border-blue-500"
     >
       <!-- คำถาม -->
-      <h2 class="text-2xl font-bold text-purple-700 mb-4">
-        ⚠️ คำถามทดสอบ IQ 🌟
+      <h2 class="text-2xl font-bold text-blue-700 mb-4">
+        🎵 เกมทายเพลงจาก Siri 🎤
       </h2>
       <p class="text-lg font-bold">
-        "ถ้าวันนี้คือเมื่อวาน เมื่อวานคือมะรืน แล้วพรุ่งนี้วันอะไร? 🤔"
+        "ฟังเสียงเพลงแล้วลองทายดูว่าชื่อเพลงคืออะไร? 🤔"
       </p>
+
+      <!-- ปุ่มเล่นเสียง -->
+      <button
+        @click="playSong"
+        class="w-full bg-gradient-to-r from-green-400 to-blue-500 text-white font-bold px-4 py-2 rounded-lg shadow-md hover:scale-105 transition-transform"
+      >
+        ▶️ ฟังเสียงเพลง!
+      </button>
 
       <!-- กล่องกรอกคำตอบ -->
       <input
         v-model="userAnswer"
         type="text"
-        placeholder="ทายมาเลยจ้า"
-        class="w-full px-4 py-2 rounded-lg border-2 border-dashed border-pink-400 text-gray-900 text-center focus:ring focus:ring-pink-500"
+        placeholder="พิมพ์ชื่อเพลงที่คุณคิดว่าใช่!"
+        class="w-full px-4 py-2 rounded-lg border-2 border-dashed border-blue-400 text-gray-900 text-center focus:ring focus:ring-blue-500"
       />
 
       <!-- ปุ่มยืนยัน -->
@@ -45,13 +53,30 @@
     </div>
 
     <!-- เมื่อคำตอบถูกต้อง -->
+    <!-- <div
+      v-else
+      class="p-8 bg-gradient-to-tr from-green-400 to-blue-500 rounded-xl shadow-lg w-full max-w-md text-center space-y-6 flex flex-col items-center border-4 border-yellow-500"
+    >
+      <h1 class="text-3xl font-extrabold text-white">🥳 ถูกต้อง! 🎉</h1>
+      <p class="text-lg font-medium text-yellow-100">
+        "ยินดีด้วย! คุณเดาชื่อเพลงถูกแล้ว 🤩"
+      </p>
+      <button
+        @click="goToNextSong"
+        class="w-full max-w-xs bg-white text-blue-800 font-bold px-5 py-3 rounded-lg shadow-lg hover:scale-110 transition-transform"
+      >
+        🔥 เล่นเพลงถัดไป!
+      </button>
+    </div> -->
+    <!-- เมื่อคำตอบถูกต้อง -->
+    <!-- เมื่อคำตอบถูกต้อง -->
     <div
       v-else
       class="p-8 bg-gradient-to-tr from-green-400 to-blue-500 rounded-xl shadow-lg w-full max-w-md text-center space-y-6 flex flex-col items-center border-4 border-yellow-500"
     >
-      <h1 class="text-3xl font-extrabold text-white">🥳 คุณคืออัจฉริยะ! 🎉</h1>
+      <h1 class="text-3xl font-extrabold text-white">🥳 คุณคืออัจฉริยะฮิฮิ! 🎉</h1>
       <iframe
-        src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"
+        src="https://www.youtube.com/embed/q0T_nEdXSfY?autoplay=1&mute=1"
         width="100%"
         height="281"
         class="rounded-xl shadow-lg border-4 border-red-400"
@@ -70,37 +95,6 @@
         🔥 ลุยต่อเลย!
       </button>
     </div>
-
-    <!-- Modal for confirmation -->
-    <div
-      v-if="showConfirmModal"
-      class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50"
-    >
-      <div
-        class="bg-yellow-100 p-8 rounded-lg shadow-2xl w-96 space-y-6 border-4 border-dashed border-pink-500"
-      >
-        <h3 class="text-2xl font-extrabold text-gray-800">🤔 แน่ใจเหรอ?</h3>
-        <p class="text-gray-700 text-center">
-          "โยมจะตอบว่า
-          <span class="font-semibold text-red-500">"{{ userAnswer }}"</span>
-          จริงดิ?"
-        </p>
-        <div class="flex justify-between gap-4">
-          <button
-            @click="checkAnswer"
-            class="bg-green-500 text-white px-5 py-3 rounded-lg shadow-lg hover:scale-105 transition-transform w-full"
-          >
-            ✅ แน่สิ!
-          </button>
-          <button
-            @click="cancelConfirmation"
-            class="bg-red-500 text-white px-5 py-3 rounded-lg shadow-lg hover:scale-105 transition-transform w-full"
-          >
-            ❌ ยกเลิก!
-          </button>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -111,12 +105,21 @@ import { useRouter } from "vue-router";
 const userAnswer = ref(""); // เก็บคำตอบของผู้ใช้
 const isUnlocked = ref(false); // เก็บสถานะว่าปลดล็อคหรือยัง
 const errorMessage = ref(""); // เก็บข้อความแสดงข้อผิดพลาด
-const showConfirmModal = ref(false); // ใช้แสดง/ซ่อน modal การยืนยันคำตอบ
-const router = useRouter(); // ใช้เปลี่ยนหน้า
 const randomGif = ref(""); // เก็บ URL ของ GIF ที่จะสุ่ม
+const router = useRouter(); // ใช้เปลี่ยนหน้า
 
-// คำตอบที่ถูกต้อง
-const correctAnswer = "วันเสาร์";
+// ข้อมูลเพลง (ตัวอย่าง)
+const correctAnswer = ref("ซ่อนกลิ่น"); // คำตอบที่ถูกต้อง
+const songs = [
+  {
+    name: "ซ่อนกลิ่น",
+    audio: "/audio/quiz.mp3", // URL ของไฟล์เสียง
+  },
+
+];
+
+const currentSong = ref(0); // เพลงปัจจุบัน
+const audioPlayer = ref(null); // เก็บ audio element
 
 const errorMessages = [
   "😂 ผิดแล้วนะจ๊ะ!",
@@ -132,19 +135,20 @@ const gifs = [
   "https://media.giphy.com/media/l0MYEqEzwMWFCg8rm/giphy.gif",
 ];
 
-// ฟังก์ชันสำหรับแสดง modal ยืนยันคำตอบ
+// ฟังก์ชันสำหรับเล่นเสียง
+const playSong = () => {
+  if (audioPlayer.value) {
+    audioPlayer.value.pause();
+  }
+  audioPlayer.value = new Audio(songs[currentSong.value].audio);
+  audioPlayer.value.play();
+};
+
+// ฟังก์ชันสำหรับยืนยันคำตอบ
 const confirmAnswer = () => {
-  showConfirmModal.value = true; // แสดง modal การยืนยัน
-};
-
-// ฟังก์ชันยกเลิกการยืนยันคำตอบ
-const cancelConfirmation = () => {
-  showConfirmModal.value = false; // ซ่อน modal
-};
-
-// ฟังก์ชันสำหรับตรวจคำตอบ
-const checkAnswer = () => {
-  if (userAnswer.value.trim().toLowerCase() === correctAnswer) {
+  if (
+    userAnswer.value.trim().toLowerCase() === correctAnswer.value.toLowerCase()
+  ) {
     isUnlocked.value = true;
     errorMessage.value = ""; // เคลียร์ข้อความ error
     randomGif.value = ""; // เคลียร์ GIF
@@ -156,16 +160,17 @@ const checkAnswer = () => {
     const randomIndexGif = Math.floor(Math.random() * gifs.length);
     randomGif.value = gifs[randomIndexGif];
   }
-
-  showConfirmModal.value = false; // ซ่อน modal หลังจากตรวจคำตอบ
 };
 
-// ฟังก์ชันเปลี่ยนหน้าไปที่เนื้อหา
-const goToContent = () => {
-  router.push("/content"); // เปลี่ยนไปยังหน้าเนื้อหา
+// ฟังก์ชันเปลี่ยนไปยังเพลงถัดไป
+const goToNextSong = () => {
+  currentSong.value++;
+  if (currentSong.value >= songs.length) {
+    currentSong.value = 0; // รีเซ็ตเป็นเพลงแรกถ้าครบแล้ว
+  }
+  correctAnswer.value = songs[currentSong.value].name;
+  userAnswer.value = "";
+  isUnlocked.value = false;
+  playSong();
 };
 </script>
-
-<style scoped>
-/* Optional: Style animations */
-</style>
