@@ -38,17 +38,18 @@
             <h2
               class="text-lg font-bold border-l-4 border-purple-400 pl-4 mb-4"
             >
-              Quiz: ทดสอบความรู้เกี่ยวกับ Nuxt 3
+              Quiz: ทดสอบความรู้เกี่ยวกับ Backend (Go + PostgreSQL)
             </h2>
             <p class="text-md">
-              ตอบคำถามเกี่ยวกับ Nuxt 3 แล้วดูผลลัพธ์พร้อมคำอธิบายได้เลย!
+              ตอบคำถามเกี่ยวกับ Backend (Go + PostgreSQL)
+              แล้วดูผลลัพธ์พร้อมคำอธิบายได้เลย!
             </p>
 
             <!-- Quiz Questions -->
             <div v-if="!isQuizComplete">
               <div
                 v-for="(question, index) in questions"
-                :key="index"
+                :key="question.id"
                 class="mt-4"
               >
                 <p class="text-md font-medium">
@@ -57,7 +58,7 @@
                 <div class="mt-2">
                   <input
                     type="text"
-                    v-model="question.answer"
+                    v-model="answers[question.id]"
                     placeholder="กรอกคำตอบของคุณ"
                     class="w-full px-4 py-2 bg-gray-800 text-gray-200 border border-gray-600 rounded focus:outline-none focus:ring focus:ring-purple-400"
                   />
@@ -75,11 +76,10 @@
             <!-- Quiz Results -->
             <div v-else>
               <h3 class="text-md font-bold text-green-400 mt-4">
-                คุณได้คะแนน {{ scorePercentage }}% ({{ score }}/
-                {{ maxScore }})
+                คุณได้คะแนน {{ scorePercentage }}% ({{ score }}/ {{ maxScore }})
               </h3>
               <ul class="list-disc list-inside mt-4 text-md">
-                <li v-for="(question, index) in questions" :key="index">
+                <li v-for="(question, index) in questions" :key="question.id">
                   <p class="font-medium">
                     {{ index + 1 }}. {{ question.question }}
                   </p>
@@ -89,7 +89,7 @@
                       'text-red-400': !question.isCorrect,
                     }"
                   >
-                    - คำตอบของคุณ: {{ question.answer }} ({{
+                    - คำตอบของคุณ: {{ answers[question.id] || "ไม่ได้ตอบ" }} ({{
                       question.isCorrect ? "ถูกต้อง" : "ผิด"
                     }})
                   </p>
@@ -113,141 +113,104 @@
 </template>
 
 <script setup lang="ts">
-
-// รายการเมนู
+// เมนู
 const menus = [
-  { id: 0, name: "ทำควิชเกี่ยวกับ Nuxt 3", content: "ทดสอบความรู้เกี่ยวกับ Nuxt 3" },
+  {
+    id: 0,
+    name: "แบบทดสอบ Backend",
+    content: "ตอบคำถามเกี่ยวกับ Go + PostgreSQL",
+  },
 ];
 
-// เมนูที่ถูกเลือก
+// เมนูที่เลือก
 const selectedMenu = ref(menus[0]);
 
-// ฟังก์ชันเลือกเมนู
 const selectMenu = (menu: (typeof menus)[0]) => {
   selectedMenu.value = menu;
 };
 
 // คำถามในแบบทดสอบ
-const questions = reactive([
+interface Question {
+  id: number;
+  question: string;
+  keywords: string[];
+  max_score: number;
+  isCorrect: boolean;
+}
+
+const questions: Question[] = reactive([
   {
-    question: "Nuxt 3 คืออะไร?",
-    keywords: ["framework", "vue", "server-side rendering", "ssr"],
-    answer: "",
-    score: 0,
-    maxScore: 2,
+    id: 1,
+    question: "Go ใช้ทำอะไรในระบบ Backend?",
+    keywords: ["server", "api", "backend"],
+    max_score: 2,
     isCorrect: false,
   },
   {
-    question: "ใน Nuxt 3 ฟังก์ชัน `asyncData` ใช้ทำอะไร?",
-    keywords: ["fetch data", "async", "server-side"],
-    answer: "",
-    score: 0,
-    maxScore: 2,
+    id: 2,
+    question: "PostgreSQL เป็นประเภทฐานข้อมูลแบบใด?",
+    keywords: ["relational", "sql", "database"],
+    max_score: 2,
     isCorrect: false,
   },
   {
-    question: "Nuxt 3 รองรับโหมดการทำงานอะไรบ้าง?",
-    keywords: ["server-side rendering", "static site generation", "ssr", "ssg"],
-    answer: "",
-    score: 0,
-    maxScore: 2,
+    id: 3,
+    question: "Middleware ใน Gin Framework ใช้ทำอะไร?",
+    keywords: ["handle request", "authentication", "logging"],
+    max_score: 2,
     isCorrect: false,
   },
   {
-    question: "ใน Nuxt 3 เราสามารถใช้ Layout ได้อย่างไร?",
-    keywords: ["layouts", "default", "custom layout"],
-    answer: "",
-    score: 0,
-    maxScore: 2,
+    id: 4,
+    question: "ORM (Object-Relational Mapping) ใน Go คืออะไร?",
+    keywords: ["database abstraction", "gorm", "query"],
+    max_score: 2,
     isCorrect: false,
   },
   {
-    question: "ใน Nuxt 3 การทำ Navigation Guard ใช้คำสั่งอะไร?",
-    keywords: ["middleware", "route guard"],
-    answer: "",
-    score: 0,
-    maxScore: 2,
-    isCorrect: false,
-  },
-  {
-    question: "ไฟล์ `.vue` ประกอบด้วยส่วนใดบ้าง?",
-    keywords: ["template", "script", "style"],
-    answer: "",
-    score: 0,
-    maxScore: 3,
-    isCorrect: false,
-  },
-  {
-    question: "ใน Nuxt 3 เราสามารถใช้ Pinia เพื่อทำอะไร?",
-    keywords: ["state management", "store"],
-    answer: "",
-    score: 0,
-    maxScore: 2,
-    isCorrect: false,
-  },
-  {
-    question: "บอกประโยชน์ของ TypeScript ในโปรเจค Nuxt 3?",
-    keywords: ["type safety", "error prevention", "better intellisense"],
-    answer: "",
-    score: 0,
-    maxScore: 2,
-    isCorrect: false,
-  },
-  {
-    question: "ใน Nuxt 3, คำสั่ง `useState` ใช้ทำอะไร?",
-    keywords: ["reactive state", "shared state", "state management"],
-    answer: "",
-    score: 0,
-    maxScore: 2,
-    isCorrect: false,
-  },
-  {
-    question: "ส่วนประกอบหลักของ Nuxt 3 มีอะไรบ้าง?",
-    keywords: ["pages", "layouts", "components", "middleware"],
-    answer: "",
-    score: 0,
-    maxScore: 3,
+    id: 5,
+    question: "บอกข้อดีของ PostgreSQL เมื่อเทียบกับฐานข้อมูลอื่น?",
+    keywords: ["performance", "features", "open source"],
+    max_score: 2,
     isCorrect: false,
   },
 ]);
 
+// คำตอบ
+const answers = reactive<Record<number, string | undefined>>({});
+const isQuizComplete = ref(false);
 const score = ref(0);
-const maxScore = computed(() =>
-  questions.reduce((sum: any, q: any) => sum + q.maxScore, 0)
-);
+const maxScore = computed(() => {
+  return questions.reduce((sum, question) => sum + question.max_score, 0);
+});
 const scorePercentage = computed(() =>
   ((score.value / maxScore.value) * 100).toFixed(2)
 );
-const isQuizComplete = ref(false);
 
-// ฟังก์ชันส่งคำตอบ
+// ตรวจคำตอบ
 const submitQuiz = () => {
   score.value = 0;
 
-  questions.forEach((question: any) => {
-    const userAnswer = question.answer.toLowerCase().split(/[ ,]+/);
-    const matchedKeywords = userAnswer.filter((answer: any) =>
+  questions.forEach((question) => {
+    const userAnswer = (answers[question.id] || "")
+      .toLowerCase()
+      .split(/[ ,]+/);
+    const matchedKeywords = userAnswer.filter((answer:any) =>
       question.keywords.includes(answer)
     );
 
-    question.score = matchedKeywords.length;
-    question.isCorrect = question.score > 0;
-    score.value += question.score;
+    question.isCorrect = matchedKeywords.length > 0;
+    score.value += matchedKeywords.length;
   });
 
   isQuizComplete.value = true;
 };
 
-// ฟังก์ชันรีเซ็ตแบบทดสอบ
+// รีเซ็ตแบบทดสอบ
 const resetQuiz = () => {
-  score.value = 0;
   isQuizComplete.value = false;
-
-  questions.forEach((question: any) => {
-    question.answer = "";
-    question.score = 0;
-    question.isCorrect = false;
-  });
+  score.value = 0;
+  Object.keys(answers).forEach((key) => (answers[Number(key)] = ""));
 };
 </script>
 
